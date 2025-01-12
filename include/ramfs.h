@@ -1,6 +1,12 @@
 #pragma once
+
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+typedef intptr_t ssize_t;
+typedef uintptr_t size_t;
+typedef long off_t;
 
 #define O_APPEND 02000
 #define O_CREAT 0100
@@ -9,29 +15,34 @@
 #define O_WRONLY 01
 #define O_RDWR 02
 
+#define FLAG_GET_RD(flags) (flags & 3)
+#define FLAG_SET_RD(flags, rd) ((flags & (~3)) | (rd))
+
 #define SEEK_SET 0
 #define SEEK_CUR 1
 #define SEEK_END 2
 
+enum node_type {
+	FNODE,
+	DNODE,
+};
+
 typedef struct node {
-	enum { FNODE, DNODE } type;
-	struct node **dirents; // if DTYPE
-	void *content;
-	int nrde;
+	enum node_type type;
+	struct node *parent, *child;
+	struct node *pre, *next;
 	char *name;
-	int size;
+
+	void *content;
+	size_t size;
 } node;
 
 typedef struct FD {
 	bool used;
-	int offset;
+	off_t offset;
 	int flags;
 	node *f;
 } FD;
-
-typedef intptr_t ssize_t;
-typedef uintptr_t size_t;
-typedef long off_t;
 
 int ropen(const char *pathname, int flags);
 int rclose(int fd);
@@ -49,19 +60,10 @@ node *find(const char *pathname);
  * internal
  */
 
-enum dprintf_level {
-	ALWAYS,
-	INFO,
-	TRACE
-};
+#define dprintf(format, ...) printf("(%s): "format, __func__, __VA_ARGS__)
 
-#define DEBUG_PRINT_LEVEL ALWAYS
+#define LTRACE(...) // dprintf(__VA_ARGS__)
+#define INFO(...) dprintf(__VA_ARGS__)
+#define ERROR(...) // dprintf(__VA_ARGS__)
 
-#define dprintf(level, ...) do { \
-	if ((level) < DEBUG_PRINT_LEVEL) \
-		fprintf(sdtout, __VA_ARGS__); \
-} while (0)
-
-#define LTRACE(x) dprintf(TRACE, x)
-#define INFO(x) dprintf(INFO, x)
-#define ERROR(x) dprintf(ALWAYS, x)
+void dump_fs(node *parent);
