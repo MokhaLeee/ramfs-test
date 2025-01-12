@@ -1,4 +1,6 @@
-*
+.vscode
+ramfs-shell
+
 !.gitignore
 !sh
 !sh/shell.c

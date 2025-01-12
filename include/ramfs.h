@@ -14,19 +14,19 @@
 #define SEEK_END 2
 
 typedef struct node {
-  enum { FNODE, DNODE } type;
-  struct node **dirents; // if DTYPE
-  void *content;
-  int nrde;
-  char *name;
-  int size;
+	enum { FNODE, DNODE } type;
+	struct node **dirents; // if DTYPE
+	void *content;
+	int nrde;
+	char *name;
+	int size;
 } node;
 
 typedef struct FD {
-  bool used;
-  int offset;
-  int flags;
-  node *f;
+	bool used;
+	int offset;
+	int flags;
+	node *f;
 } FD;
 
 typedef intptr_t ssize_t;
@@ -41,6 +41,27 @@ off_t rseek(int fd, off_t offset, int whence);
 int rmkdir(const char *pathname);
 int rrmdir(const char *pathname);
 int runlink(const char *pathname);
-void init_ramfs();
-void close_ramfs();
+void init_ramfs(void);
+void close_ramfs(void);
 node *find(const char *pathname);
+
+/**
+ * internal
+ */
+
+enum dprintf_level {
+	ALWAYS,
+	INFO,
+	TRACE
+};
+
+#define DEBUG_PRINT_LEVEL ALWAYS
+
+#define dprintf(level, ...) do { \
+	if ((level) < DEBUG_PRINT_LEVEL) \
+		fprintf(sdtout, __VA_ARGS__); \
+} while (0)
+
+#define LTRACE(x) dprintf(TRACE, x)
+#define INFO(x) dprintf(INFO, x)
+#define ERROR(x) dprintf(ALWAYS, x)

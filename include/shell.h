@@ -6,5 +6,5 @@ int smkdir(const char *pathname);
 int stouch(const char *pathname);
 int secho(const char *content);
 int swhich(const char *cmd);
-void init_shell();
-void close_shell();
+void init_shell(void);
+void close_shell(void);
