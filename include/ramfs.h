@@ -55,20 +55,28 @@ node *find(const char *pathname);
 /**
  * internal
  */
-// #define TRACE_EN
-#define INFO_EN
+
+#define TRACE_EN 0
+#define INFO_EN  1
+#define ERROR_EN 1
 
 #define dprintf(prefix, format, ...) printf(prefix"(%s:%d: %s) "format, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
 
-#ifdef TRACE_EN
+#if TRACE_EN
 #define TRACE(...) dprintf("[TRACE]", __VA_ARGS__)
 #else
 #define TRACE(...)
 #endif
 
-#ifdef INFO_EN
+#if INFO_EN
 #define INFO(...) dprintf("[INFO]", __VA_ARGS__)
 #else
 #define INFO(...)
 #endif
+
+#if ERROR_EN
 #define ERROR(...) dprintf("[ERROR]", __VA_ARGS__)
+#else
+#define ERROR(...)
+#endif
+

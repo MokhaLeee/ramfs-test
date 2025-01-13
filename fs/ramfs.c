@@ -31,6 +31,26 @@ struct local_filename {
 	struct local_token *head;
 };
 
+bool valid_fpath(const char *s)
+{
+	while (*s) {
+		switch (*s++) {
+		case '0' ... '9':
+		case 'a' ... 'z':
+		case 'A' ... 'Z':
+			break;
+
+		case '/':
+		case '.':
+			break;
+
+		default:
+			return false;
+		}
+	}
+	return true;
+}
+
 static void get_token(const char *s, int *start, int *len)
 {
 	*start = *len = 0;
@@ -45,49 +65,6 @@ static void get_token(const char *s, int *start, int *len)
 		s++;
 }
 
-static struct local_filename *get_local_filename(const char *fpath)
-{
-	int start, len;
-	struct local_token *token;
-	struct local_filename *filename = malloc(sizeof(*filename));
-
-	assert(filename != NULL);
-
-	filename->uptr = fpath;
-	filename->head = token = NULL;
-
-	for (;;) {
-		struct local_token *new_token;
-
-		get_token(fpath, &start, &len);
-
-		if (len == 0)
-			break;
-
-		new_token = malloc(sizeof(*new_token));
-		assert(new_token != NULL);
-
-		new_token->tok_name = malloc(len + 1);
-		assert(new_token->tok_name != NULL);
-
-		memcpy(new_token->tok_name, fpath + start, len);
-		new_token->tok_name[len] = '\0';
-
-		new_token->next = NULL;
-
-		if (token == NULL)
-			filename->head = new_token;
-		else
-			token->next = new_token;
-
-		TRACE("trace token generation: token=%s, start=%d, len=%d\n", new_token->tok_name, start, len);
-
-		fpath = fpath + start + len;
-		token = new_token;
-	}
-	return filename;
-}
-
 static int get_token_depth(struct local_token *token)
 {
 	int ret = 0;
@@ -99,7 +76,7 @@ static int get_token_depth(struct local_token *token)
 		ret++;
 		token = token->next;
 	}
-	return ret;
+	return ret >= 0 ? ret : -1;
 }
 
 static void free_local_filename(struct local_filename *filename)
@@ -123,6 +100,65 @@ static void free_local_filename(struct local_filename *filename)
 	free(token);
 }
 
+static struct local_filename *get_local_filename(const char *fpath)
+{
+	int ret, start, len;
+	struct local_token *token;
+	struct local_filename *filename;
+
+	ret = 0;
+
+	if (!valid_fpath(fpath))
+		return NULL;
+
+	filename = malloc(sizeof(*filename));
+	assert(filename != NULL);
+
+	filename->uptr = fpath;
+	filename->head = token = NULL;
+
+	for (;;) {
+		struct local_token *new_token;
+
+		get_token(fpath, &start, &len);
+
+		if (len == 0)
+			break;
+
+		if (len > 32)
+			ERR_RET(-1);
+
+		new_token = malloc(sizeof(*new_token));
+		assert(new_token != NULL);
+
+		new_token->tok_name = malloc(len + 1);
+		assert(new_token->tok_name != NULL);
+
+		memcpy(new_token->tok_name, fpath + start, len);
+		new_token->tok_name[len] = '\0';
+
+		new_token->next = NULL;
+
+		if (token == NULL)
+			filename->head = new_token;
+		else
+			token->next = new_token;
+
+		TRACE("trace token generation: token=%s, start=%d, len=%d\n", new_token->tok_name, start, len);
+
+		fpath = fpath + start + len;
+		token = new_token;
+	}
+
+err_ret:
+	if (ret < 0) {
+		free_local_filename(filename);
+		return NULL;
+	}
+
+	return filename;
+}
+
 /**
  * node ops
  */
@@ -137,7 +173,9 @@ node *next_node(const struct local_token *token, node *current)
 	if (current->type != DNODE || current->dirents == NULL || current->nrde == 0)
 		return NULL;
 
-	if (current == NULL)
+	assert(token->tok_name != NULL);
+
+	if (current == NULL || token->tok_name[0] == '/')
 		current = root;
 
 	// todo: ./../?
@@ -290,6 +328,17 @@ static void remove_node(node *fnode)
 /**
  * API
  */
+node *find(const char *fpath)
+{
+	struct local_filename *filename;
+
+	filename = get_local_filename(fpath);
+	if(!filename|| !filename->head)
+		return NULL;
+
+	return find_node(filename->head, working_dir);
+}
+
 int ropen(const char *fpath, int flags)
 {
 	int fd, ret = -1;
@@ -343,7 +392,7 @@ int ropen(const char *fpath, int flags)
 		fnode = NULL;
 	}
 
-	if (!fnode) {
+	if (!fnode && (flags & O_CREAT)) {
 		/**
 		 * try to create the file
 		 */
@@ -357,6 +406,9 @@ int ropen(const char *fpath, int flags)
 		if (!fnode)
 			ERR_RET(-ENOMEM);
 	}
+
+	if (!fnode)
+		ERR_RET(-1);
 
 	if (fnode->type != FNODE)
 		ERR_RET(-ENOANO);
@@ -391,28 +443,31 @@ int ropen(const char *fpath, int flags)
 
 err_ret:
 	free_local_filename(filename);
-	return ret;
+	return ret >= 0 ? ret : -1;
 }
 
 int rclose(int fd)
 {
+	int ret = 0;
 	FD *file;
 
 	/**
 	 * check the fd valid
 	 */	
 	if (fd < 0 || fd > NRFD)
-		return -EBADF;
+		ERR_RET(-EBADF);
 
 	file = &fdesc[fd];
 	if (file->used != true)
-		return -EBADF;
+		ERR_RET(-EBADF);
 
 	/**
 	 * release the desc
 	 */
 	file->used = false;
-	return 0;
+
+err_ret:
+	return ret >= 0 ? ret : -1;
 }
 
 ssize_t rwrite(int fd, const void *buf, size_t count)
@@ -437,7 +492,7 @@ ssize_t rwrite(int fd, const void *buf, size_t count)
 	if (file->f->type != FNODE)
 		ERR_RET(-EISDIR);
 
-	max_size = file->offset + count + 1;
+	max_size = file->offset + count;
 	if (max_size > file->f->size) {
 		void *new_content = malloc(max_size);
 
@@ -455,12 +510,14 @@ ssize_t rwrite(int fd, const void *buf, size_t count)
 	memcpy(file->f->content + file->offset, buf, count);
 
 	file->offset += count;
+	ret = count;
+
 	TRACE("file=%s, offset=%d\n", file->f->name, file->offset);
 	TRACE("src=%s\n", (const char *)buf);
 	TRACE("dst=%s\n", (char *)file->f->content);
 
 err_ret:
-	return ret;
+	return ret >= 0 ? ret : -1;
 }
 
 ssize_t rread(int fd, void *buf, size_t count)
@@ -511,16 +568,17 @@ ssize_t rread(int fd, void *buf, size_t count)
 	TRACE("file=%s, len=%d, buf=%s\n", file->f->name, ret, (char *)buf);
 
 err_ret:
-	return ret;
+	return ret >= 0 ? ret : -1;
 }
 
 off_t rseek(int fd, off_t offset, int whence)
 {
+	int ret = 0;
 	off_t new_offset;
 	FD *file = &fdesc[fd];
 
 	if (file->used != true)
-		return -EINVAL;
+		ERR_RET(-EINVAL);
 
 	switch (whence) {
 	case SEEK_SET:
@@ -536,16 +594,20 @@ off_t rseek(int fd, off_t offset, int whence)
 		break;
 
 	default:
-		return -EINVAL;
+		ERR_RET(-EINVAL);
 	}
 
+	TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
+			file->f->name, offset, new_offset, whence, file->f->size);
+
 	if (new_offset < 0 || new_offset > file->f->size)
-		return -1;
+		ERR_RET(-1);
 
 	file->offset = new_offset;
+	ret = file->offset;
 
-	TRACE("offset=%d\n", file->offset);
-	return 0;
+err_ret:
+	return ret >= 0 ? ret : -1;
 }
 
 int rmkdir(const char *fpath)
@@ -599,7 +661,7 @@ int rmkdir(const char *fpath)
 
 err_ret:
 	free_local_filename(filename);
-	return ret;
+	return ret >= 0 ? ret : -1;
 }
 
 int rrmdir(const char *fpath)
@@ -648,7 +710,7 @@ err_ret:
 	if (ret)
 		ERROR("%d\n", ret);
 
-	return ret;
+	return ret >= 0 ? ret : -1;
 }
 
 int runlink(const char *fpath)
@@ -681,7 +743,7 @@ int runlink(const char *fpath)
 
 err_ret:
 	free_local_filename(filename);
-	return ret;
+	return ret >= 0 ? ret : -1;
 }
 
 void init_ramfs()
