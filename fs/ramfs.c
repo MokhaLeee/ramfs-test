@@ -11,144 +11,355 @@ node *working_dir = NULL;
 #define NRFD 4096
 FD fdesc[NRFD];
 
+#define ERR_RET(err_no) { \
+	ret = (err_no); \
+	if ((err_no) < 0) \
+		ERROR("%d\n", (err_no)); \
+	goto err_ret; \
+}
+
 /**
  * string ops
  */
-const char *get_token(const char *s)
+struct local_token {
+	struct local_token *next;
+	char *tok_name;
+};
+
+struct local_filename {
+	const char *uptr;
+	struct local_token *head;
+};
+
+static void get_token(const char *s, int *start, int *len)
 {
+	*start = *len = 0;
+
 	while (*s && *s == '/')
-		s++;
+		s++, (*start)++;
 
 	while (*s && *s != '/')
-		s++;
+		s++, (*len)++;
 
 	while (*s && *s == '/')
 		s++;
+}
 
-	return s;
+static struct local_filename *get_local_filename(const char *fpath)
+{
+	int start, len;
+	struct local_token *token;
+	struct local_filename *filename = malloc(sizeof(*filename));
+
+	assert(filename != NULL);
+
+	filename->uptr = fpath;
+	filename->head = token = NULL;
+
+	for (;;) {
+		struct local_token *new_token;
+
+		get_token(fpath, &start, &len);
+
+		if (len == 0)
+			break;
+
+		new_token = malloc(sizeof(*new_token));
+		assert(new_token != NULL);
+
+		new_token->tok_name = malloc(len + 1);
+		assert(new_token->tok_name != NULL);
+
+		memcpy(new_token->tok_name, fpath + start, len);
+		new_token->tok_name[len] = '\0';
+
+		new_token->next = NULL;
+
+		if (token == NULL)
+			filename->head = new_token;
+		else
+			token->next = new_token;
+
+		TRACE("trace token generation: token=%s, start=%d, len=%d\n", new_token->tok_name, start, len);
+
+		fpath = fpath + start + len;
+		token = new_token;
+	}
+	return filename;
+}
+
+static int get_token_depth(struct local_token *token)
+{
+	int ret = 0;
+
+	while (token) {
+		assert(token->tok_name != NULL);
+		TRACE("depth=%d, token=%s\n", ret, token->tok_name);
+
+		ret++;
+		token = token->next;
+	}
+	return ret;
+}
+
+static void free_local_filename(struct local_filename *filename)
+{
+	struct local_token *token;
+
+	if (!filename)
+		return;
+
+	token = filename->head;
+	while (token) {
+		struct local_token *next = token->next;
+
+		if (token->tok_name)
+			free(token->tok_name);
+
+		free(token);
+		token = next;
+	}
+
+	free(token);
 }
 
 /**
  * node ops
  */
-static node *find_node(const char *fpath)
+node *next_node(const struct local_token *token, node *current)
 {
-	return NULL;
-}
+	int i;
+	node *next_node = NULL;
 
-node *create_root(void)
-{
-	struct node *fnode;
-	const char *name = "/\0";
-
-	fnode = malloc(sizeof(node));
-	if (!fnode)
+	if (token == NULL)
 		return NULL;
 
-	fnode->type = DNODE;
-	fnode->dirents = NULL;
-	fnode->nrde = 0;
-	fnode->name = malloc(strlen(name) + 1);
-	strcpy(fnode->name, name);
-	fnode->size = 0;
-
-	return fnode;
-}
-
-node *create_node(const char *fpath, node *parent, int type)
-{
-	struct node *fnode;
-	const char *name, *tmp;
-
-	if (*fpath == '\0')
+	if (current->type != DNODE || current->dirents == NULL || current->nrde == 0)
 		return NULL;
 
-	if (!parent || *fpath == '/')
-		parent = root;
+	if (current == NULL)
+		current = root;
 
-	fnode = malloc(sizeof(node));
-	if (!fnode)
-		return NULL;
+	// todo: ./../?
 
-	name = tmp = fpath;
-	while (*tmp != '\0') {
-		name = tmp;
-		tmp = get_token(tmp);
+	for (i = 0; i < current->nrde; i++) {
+		node *child = current->dirents[i];
+
+		assert(child != NULL && child->name != NULL);
+
+		if (strcmp(child->name, token->tok_name) == 0) {
+			next_node = child;
+			break;
+		}
 	}
 
-	fnode->name = malloc(strlen(name) + 1);
-	strcpy(fnode->name, name);
+	return next_node;
+}
 
-	/**
-	 * setup: todo
-	 */
+static node *find_node(const struct local_token *token, node *current)
+{
+	struct node *fnode;
+
+	if (!token)
+		return NULL;
+
+	fnode = current;
+	while (token) {
+		fnode = next_node(token, fnode);
+
+		if (!fnode || !token)
+			break;
+	}
+	return fnode;
+}
+
+static node *spawn_node(const struct local_token *token, node *parent, int type)
+{
+	struct node *fnode;
+
+	assert(type == DNODE || type == FNODE);
+
+	fnode = malloc(sizeof(node));
+	assert(fnode != NULL);
+
 	fnode->type = type;
+	fnode->parent = parent;
+	fnode->dirents = NULL;
+	fnode->content = NULL;
+	fnode->nrde = fnode->nrde_max = 0;
+	fnode->name = malloc(strlen(token->tok_name) + 1);
+	assert(fnode->name != NULL);
+	strcpy(fnode->name, token->tok_name);
+	fnode->size = 0;
+
+	if (parent) {
+		// link node
+
+		assert(parent->type == DNODE);
+		assert(parent->nrde <= parent->nrde_max);
+
+		if (!parent->dirents) {
+			parent->dirents = malloc(NRDE_GRP * sizeof(struct node *));
+			assert(parent->dirents != NULL);
+
+			parent->dirents[0] = fnode;
+			parent->nrde = 1;
+			parent->nrde_max = NRDE_GRP;
+		} else {
+			if (parent->nrde == parent->nrde_max) {
+				// oops
+				struct node **new_dirents = malloc((parent->nrde_max + NRDE_GRP) * sizeof(struct node *));
+
+				assert(new_dirents != NULL);
+				memcpy(new_dirents, parent->dirents, parent->nrde_max * sizeof(struct node *));
+
+				free(parent->dirents);
+				parent->dirents = new_dirents;
+			}
+
+			parent->dirents[parent->nrde++] = fnode;
+		}
+	}
 
 	return fnode;
 }
 
-node *next_node(const char **name, node *current)
+static node *create_root(void)
 {
-	return NULL;
+	const struct local_token token = {
+		.tok_name = "/\0",
+	};
+	return spawn_node(&token, NULL, DNODE);
 }
 
-void remove_node(node *fnode) {}
+static node *create_node(const struct local_token *token, node *parent, int type)
+{
+	if (!token || !token->tok_name)
+		return NULL;
+
+	// todo: how should we handle the case parent does not exist?
+
+	return spawn_node(token, parent, type);
+}
+
+static void remove_node(node *fnode)
+{
+	int i;
+	node *parent;
+
+	if (!fnode)
+		return;
+
+	if (fnode->type == DNODE && fnode->nrde > 0) {
+		assert(fnode->dirents != NULL);
+
+		for (i = 0; i < fnode->nrde; i++) {
+			node *child = fnode->dirents[i];
+
+			assert(child != NULL);
+			remove_node(child);
+		}
+	}
+
+	/**
+	 * unlink from parent
+	 */
+	parent = fnode->parent;
+	if (parent) {
+		assert(parent->nrde > 0);
+		assert(parent->dirents != NULL);
+
+		for (i = 0; i < parent->nrde; i++) {
+			node *brother = parent->dirents[i];
+
+			assert(brother != NULL);
+
+			if (brother == fnode)
+				break;
+		}
+
+		assert(i < parent->nrde);
+
+		for (; i < parent->nrde; i++)
+			parent->dirents[i] = parent->dirents[i + 1];
+
+		parent->nrde--;
+	}
+}
 
 /**
  * API
  */
 int ropen(const char *fpath, int flags)
 {
-	int fd;
+	int fd, ret = -1;
 	bool fd_alloced;
-	node *fnode;
+	node *fnode, *parent;
+	struct local_filename *filename;
+	struct local_token *token;
+
+	/**
+	 * Judge invalid flags
+	 */
+	switch (FLAG_GET_RD(flags)) {
+	case O_RDONLY:
+		if (flags & O_TRUNC)
+			flags &= ~O_TRUNC;
+		break;
+
+	case O_WRONLY:
+		break;
+
+	case O_RDWR:
+		break;
+
+	default:
+		flags = FLAG_SET_RD(flags, O_WRONLY);
+		break;
+	}
+
+	filename = get_local_filename(fpath);
+	if(!filename|| !filename->head)
+		ERR_RET(-EPERM);
 
 	/**
 	 * find the node
 	 */
-	fnode = find_node(fpath);
+	parent = working_dir;
+	token = filename->head;
+
+	while (token) {
+		fnode = next_node(token, parent);
+
+		if (!fnode)
+			break;
+
+		parent = fnode;
+		token = token->next;
+	}
+
+	if (fnode && (flags & O_TRUNC) && (flags & (O_WRONLY | O_RDWR))) {
+		remove_node(fnode);
+		fnode = NULL;
+	}
+
 	if (!fnode) {
 		/**
 		 * try to create the file
 		 */
-		const char *tmp, *name;
-		node *parent;
-
-		/**
-		 * find the parent node step by step
-		 */
-		tmp = name = fpath;
-		parent = fnode = working_dir;
-		while (1) {
-			fnode = next_node(&tmp, fnode);
-
-			if (!*tmp || !fnode)
-				break;
-
-			name = tmp;
-			parent = fnode;
-		}
-
-		/**
-		 * check the parent node type
-		 */
-		if (!parent || parent->type != DNODE)
-			return -1;
-
-		/**
-		 * check the name valid: todo
-		 */
+		if (get_token_depth(token) > 1 || !parent || parent->type != DNODE)
+			ERR_RET(-EINVAL);
 
 		/**
 		 * create node
 		 */
-		fnode = create_node(tmp, parent, FNODE);
+		fnode = create_node(token, parent, FNODE);
 		if (!fnode)
-			return -1;
+			ERR_RET(-ENOMEM);
 	}
 
 	if (fnode->type != FNODE)
-		return -1;
+		ERR_RET(-ENOANO);
 
 	/**
 	 * alloc the desc
@@ -159,18 +370,28 @@ int ropen(const char *fpath, int flags)
 		FD *file = &fdesc[fd];
 
 		if (file->used == false) {
+			file->used = true;
 			file->flags = flags;
 			file->offset = 0;
 			file->f = fnode;
 
+			if (flags & O_APPEND)
+				fdesc[fd].offset = fnode->size;
+			else
+				fdesc[fd].offset = 0;
+
+			ret = fd;
 			fd_alloced = true;
+			break;
 		}
 	}
 
 	if (!fd_alloced)
-		return -1;
+		ERR_RET(-ENOMEM);
 
-	return fd;
+err_ret:
+	free_local_filename(filename);
+	return ret;
 }
 
 int rclose(int fd)
@@ -196,60 +417,101 @@ int rclose(int fd)
 
 ssize_t rwrite(int fd, const void *buf, size_t count)
 {
+	int ret = 0;
+	size_t max_size;
 	FD *file;
 
 	/**
 	 * check the fd valid
 	 */	
 	if (fd < 0 || fd > NRFD)
-		return -EBADF;
+		ERR_RET(-EBADF);
 
 	file = &fdesc[fd];
-	if (file->used != true)
-		return -EBADF;
+	if (file->used != true || FLAG_GET_RD(file->flags) == O_RDONLY)
+		ERR_RET(-EBADF);
 
 	/**
 	 * check the node valid
 	 */
 	if (file->f->type != FNODE)
-		return -EISDIR;
+		ERR_RET(-EISDIR);
 
-	if ((file->offset + count) > file->f->size)
-		return -ENOMEM;
+	max_size = file->offset + count + 1;
+	if (max_size > file->f->size) {
+		void *new_content = malloc(max_size);
+
+		if (!new_content)
+			ERR_RET(-ENOMEM);
+
+		memcpy(new_content, file->f->content, file->f->size);
+		memset(new_content + file->f->size, 0, max_size - file->f->size);
+
+		free(file->f->content);
+		file->f->size = max_size;
+		file->f->content = new_content;
+	}
 
 	memcpy(file->f->content + file->offset, buf, count);
 
 	file->offset += count;
-	return 0;
+	TRACE("file=%s, offset=%d\n", file->f->name, file->offset);
+	TRACE("src=%s\n", (const char *)buf);
+	TRACE("dst=%s\n", (char *)file->f->content);
+
+err_ret:
+	return ret;
 }
 
 ssize_t rread(int fd, void *buf, size_t count)
 {
+	int ret = 0;
 	FD *file;
 
 	/**
 	 * check the fd valid
 	 */	
 	if (fd < 0 || fd > NRFD)
-		return -EBADF;
+		ERR_RET(-EBADF);
 
 	file = &fdesc[fd];
 	if (file->used != true)
-		return -EBADF;
+		ERR_RET(-EBADF);
+
+	TRACE("flags=0x%04X\n", file->flags);
+
+	switch (FLAG_GET_RD(file->flags)) {
+	case O_RDONLY:
+	case O_RDWR:
+		break;
+
+	default:
+		ERR_RET(-EBADF);
+	}
 
 	/**
 	 * check the node valid
 	 */
 	if (file->f->type != FNODE)
-		return -EISDIR;
+		ERR_RET(-EISDIR);
 
 	if ((file->offset + count) > file->f->size)
-		return -ENOMEM;
+		count = file->f->size - file->offset;
+
+	if (count <= 0) {
+		ret = 0;
+		goto err_ret;
+	}
 
 	memcpy(buf, file->f->content + file->offset, count);
 
 	file->offset += count;
-	return 0;
+	ret = count;
+
+	TRACE("file=%s, len=%d, buf=%s\n", file->f->name, ret, (char *)buf);
+
+err_ret:
+	return ret;
 }
 
 off_t rseek(int fd, off_t offset, int whence)
@@ -281,114 +543,145 @@ off_t rseek(int fd, off_t offset, int whence)
 		return -1;
 
 	file->offset = new_offset;
+
+	TRACE("offset=%d\n", file->offset);
 	return 0;
 }
 
 int rmkdir(const char *fpath)
 {
-	const char *tmp, *name;
+	int depth, ret = 0;
 	node *fnode, *parent;
+	struct local_filename *filename;
+	struct local_token *token;
+
+	filename = get_local_filename(fpath);
+	if(!filename|| !filename->head)
+		ERR_RET(-EINVAL);
 
 	/**
-	 * 1. find the existing node
+	 * find the node
 	 */
-	fnode = find_node(fpath);
-	if (fnode)
-		return -1;
+	parent = working_dir;
+	token = filename->head;
 
-	/**
-	 * 2. find the parent node step by step
-	 */
-	tmp = name = fpath;
-	parent = fnode = working_dir;
-	while (1) {
-		fnode = next_node(&tmp, fnode);
+	while (token) {
+		fnode = next_node(token, parent);
 
-		if (!*tmp || !fnode)
+		TRACE("find node: %s\n", token->tok_name);
+
+		if (!fnode)
 			break;
 
-		name = tmp;
 		parent = fnode;
+		token = token->next;
 	}
 
-	/**
-	 * 3. check the parent node type
-	 */
-	if (!parent || parent->type != DNODE)
-		return -1;
+	if (fnode)
+		ERR_RET(-EISDIR);
+
 
 	/**
-	 * 4. check the name valid: todo
+	 * try to create the file
 	 */
+	depth = get_token_depth(token);
+	if (depth > 1 || !parent || parent->type != DNODE) {
+		ERROR("no parrent, depth=%d\n", depth);
+		ERR_RET(-EINVAL);
+	}
 
 	/**
 	 * create node
 	 */
-	fnode = create_node(tmp, parent, DNODE);
+	fnode = create_node(token, parent, DNODE);
 	if (!fnode)
-		return -1;
+		ERR_RET(-ENOMEM);
 
-	return 0;
+err_ret:
+	free_local_filename(filename);
+	return ret;
 }
 
 int rrmdir(const char *fpath)
 {
+	int ret = 0;
 	node *fnode;
+	struct local_filename *filename;
+
+	filename = get_local_filename(fpath);
+	if(!filename|| !filename->head)
+		ERR_RET(-EINVAL);
 
 	/**
 	 * find node
 	 */
-	fnode = find_node(fpath);
+	fnode = find_node(filename->head, working_dir);
 	if (!fnode)
-		return -1;
+		ERR_RET(-EPERM);
 
 	/**
 	 * 2. check the node type
 	 */
 	if (fnode->type != DNODE)
-		return -1;
+		ERR_RET(-1);
 
 	/**
 	 * 3. check deletable
 	 */
 	if (fnode == root || fnode == working_dir)
-		return -1;
+		ERR_RET(-1);
 
 	/**
 	 * 4. has child (other wise not delect ??)
 	 */
 	if (fnode->nrde > 0)
-		return -1;
+		ERR_RET(-1);
 
 	/**
 	 * 5. remove node
 	 */
 	remove_node(fnode);
-	return 0;
+
+err_ret:
+	free_local_filename(filename);
+
+	if (ret)
+		ERROR("%d\n", ret);
+
+	return ret;
 }
 
 int runlink(const char *fpath)
 {
+	int ret = 0;
 	node *fnode;
+	struct local_filename *filename;
+
+	filename = get_local_filename(fpath);
+	if(!filename|| !filename->head)
+		ERR_RET(-1);
 
 	/**
 	 * 1. find the node
 	 */
-	fnode = find_node(fpath);
+	fnode = find_node(filename->head, working_dir);
 	if (!fnode)
-		return -1;
+		ERR_RET(-1);
 
 	/**
 	 * 2. check the node type
 	 */
 	if (fnode->type != FNODE)
-		return -1;
+		ERR_RET(-1);
 
 	/**
 	 * 3. remove
 	 */
 	remove_node(fnode);
-	return 0;
+
+err_ret:
+	free_local_filename(filename);
+	return ret;
 }
 
 void init_ramfs()
@@ -402,4 +695,6 @@ void init_ramfs()
 void close_ramfs()
 {
 	remove_node(root);
+
+	root = NULL;
 }

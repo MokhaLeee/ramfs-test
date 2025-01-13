@@ -1,6 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #define O_APPEND 02000
 #define O_CREAT 0100
@@ -9,15 +10,21 @@
 #define O_WRONLY 01
 #define O_RDWR 02
 
+#define FLAG_GET_RD(flags) (flags & 3)
+#define FLAG_SET_RD(flags, rd) ((flags & (~3)) | (rd))
+
 #define SEEK_SET 0
 #define SEEK_CUR 1
 #define SEEK_END 2
 
+#define NRDE_GRP 40
+
 typedef struct node {
 	enum { FNODE, DNODE } type;
+	struct node *parent;
 	struct node **dirents; // if DTYPE
 	void *content;
-	int nrde;
+	int nrde, nrde_max;
 	char *name;
 	int size;
 } node;
@@ -48,20 +55,20 @@ node *find(const char *pathname);
 /**
  * internal
  */
+// #define TRACE_EN
+#define INFO_EN
 
-enum dprintf_level {
-	ALWAYS,
-	INFO,
-	TRACE
-};
+#define dprintf(prefix, format, ...) printf(prefix"(%s:%d: %s) "format, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
 
-#define DEBUG_PRINT_LEVEL ALWAYS
+#ifdef TRACE_EN
+#define TRACE(...) dprintf("[TRACE]", __VA_ARGS__)
+#else
+#define TRACE(...)
+#endif
 
-#define dprintf(level, ...) do { \
-	if ((level) < DEBUG_PRINT_LEVEL) \
-		fprintf(sdtout, __VA_ARGS__); \
-} while (0)
-
-#define LTRACE(x) dprintf(TRACE, x)
-#define INFO(x) dprintf(INFO, x)
-#define ERROR(x) dprintf(ALWAYS, x)
+#ifdef INFO_EN
+#define INFO(...) dprintf("[INFO]", __VA_ARGS__)
+#else
+#define INFO(...)
+#endif
+#define ERROR(...) dprintf("[ERROR]", __VA_ARGS__)
