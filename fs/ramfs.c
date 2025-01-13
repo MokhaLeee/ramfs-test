@@ -325,6 +325,26 @@ static void remove_node(node *fnode)
 	}
 }
 
+static void node_realloc_content(node *fnode, int max_size)
+{
+	void *new_content;
+
+	assert(max_size >= fnode->size);
+
+	new_content = malloc(max_size);
+	assert(new_content);
+
+	memset(new_content, 0, max_size);
+
+	if (fnode->content) {
+		memcpy(new_content, fnode->content, fnode->size);
+		free(fnode->content);
+	}
+
+	fnode->size = max_size;
+	fnode->content = new_content;
+}
+
 /**
  * API
  */
@@ -493,19 +513,8 @@ ssize_t rwrite(int fd, const void *buf, size_t count)
 		ERR_RET(-EISDIR);
 
 	max_size = file->offset + count;
-	if (max_size > file->f->size) {
-		void *new_content = malloc(max_size);
-
-		if (!new_content)
-			ERR_RET(-ENOMEM);
-
-		memcpy(new_content, file->f->content, file->f->size);
-		memset(new_content + file->f->size, 0, max_size - file->f->size);
-
-		free(file->f->content);
-		file->f->size = max_size;
-		file->f->content = new_content;
-	}
+	if (max_size > file->f->size)
+		node_realloc_content(file->f, max_size);
 
 	memcpy(file->f->content + file->offset, buf, count);
 
@@ -600,8 +609,11 @@ off_t rseek(int fd, off_t offset, int whence)
 	TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
 			file->f->name, offset, new_offset, whence, file->f->size);
 
-	if (new_offset < 0 || new_offset > file->f->size)
-		ERR_RET(-1);
+	if (new_offset < 0)
+		new_offset = 0;
+
+	if (new_offset > file->f->size)
+		node_realloc_content(file->f, new_offset);
 
 	file->offset = new_offset;
 	ret = file->offset;

@@ -57,8 +57,8 @@ node *find(const char *pathname);
  */
 
 #define TRACE_EN 0
-#define INFO_EN  1
-#define ERROR_EN 1
+#define INFO_EN  0
+#define ERROR_EN 0
 
 #define dprintf(prefix, format, ...) printf(prefix"(%s:%d: %s) "format, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
 
