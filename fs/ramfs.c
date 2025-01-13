@@ -11,11 +11,13 @@ node *working_dir = NULL;
 #define NRFD 4096
 FD fdesc[NRFD];
 
-#define ERR_RET(err_no) { \
-	ret = (err_no); \
-	if ((err_no) < 0) \
+#define FNAME_MAX_LEN 32
+
+#define ERR_RET(err_no) {        \
+	ret = (err_no);              \
+	if ((err_no) < 0)            \
 		ERROR("%d\n", (err_no)); \
-	goto err_ret; \
+	goto err_ret;                \
 }
 
 /**
@@ -30,8 +32,6 @@ struct local_filename {
 	const char *uptr;
 	struct local_token *head;
 };
-
-#define FNAME_MAX_LEN 32
 
 bool valid_fpath(const char *s)
 {
