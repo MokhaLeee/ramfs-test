@@ -16,14 +16,14 @@ FD fdesc[NRFD];
  */
 const char *get_token(const char *s)
 {
-	if (*s == '\0')
-		return s;
+	while (*s && *s == '/')
+		s++;
 
-	while (*s++ == '/')
-		;
+	while (*s && *s != '/')
+		s++;
 
-	while (*s++ != '/')
-		;
+	while (*s && *s == '/')
+		s++;
 
 	return s;
 }
@@ -107,7 +107,47 @@ int ropen(const char *fpath, int flags)
 	 * find the node
 	 */
 	fnode = find_node(fpath);
-	if (!fnode || (fnode->type != FNODE))
+	if (!fnode) {
+		/**
+		 * try to create the file
+		 */
+		const char *tmp, *name;
+		node *parent;
+
+		/**
+		 * find the parent node step by step
+		 */
+		tmp = name = fpath;
+		parent = fnode = working_dir;
+		while (1) {
+			fnode = next_node(&tmp, fnode);
+
+			if (!*tmp || !fnode)
+				break;
+
+			name = tmp;
+			parent = fnode;
+		}
+
+		/**
+		 * check the parent node type
+		 */
+		if (!parent || parent->type != DNODE)
+			return -1;
+
+		/**
+		 * check the name valid: todo
+		 */
+
+		/**
+		 * create node
+		 */
+		fnode = create_node(tmp, parent, FNODE);
+		if (!fnode)
+			return -1;
+	}
+
+	if (fnode->type != FNODE)
 		return -1;
 
 	/**
@@ -129,10 +169,6 @@ int ropen(const char *fpath, int flags)
 
 	if (!fd_alloced)
 		return -1;
-
-	/**
-	 * try to create the file
-	 */
 
 	return fd;
 }
@@ -282,7 +318,11 @@ int rmkdir(const char *fpath)
 		return -1;
 
 	/**
-	 * 4. check the name valid
+	 * 4. check the name valid: todo
+	 */
+
+	/**
+	 * create node
 	 */
 	fnode = create_node(tmp, parent, DNODE);
 	if (!fnode)
