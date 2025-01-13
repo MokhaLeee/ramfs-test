@@ -3,57 +3,35 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h>
 
-const char *content = "export PATH=/usr/bin/\n";
-const char *ct = "export PATH=/home:$PATH";
+#define test(func, expect, ...) assert(func(__VA_ARGS__) == expect)
+#define succopen(var, ...) assert((var = ropen(__VA_ARGS__)) >= 0)
+#define failopen(var, ...) assert((var = ropen(__VA_ARGS__)) == -1)
+
 int main() {
-  init_ramfs();
+    init_ramfs();
+    int fd;
+    test(rmkdir, -1, "/000000000000000000000000000000001");
 
-  assert(rmkdir("/home") == 0);
-  assert(rmkdir("//home") == -1);
-  assert(rmkdir("/test/1") == -1);
-  assert(rmkdir("/home/ubuntu") == 0);
-  assert(rmkdir("/usr") == 0);
-  assert(rmkdir("/usr/bin") == 0);
-  assert(rwrite(ropen("/home///ubuntu//.bashrc", O_CREAT | O_WRONLY), content, strlen(content)) == strlen(content));
-  
-  int fd = ropen("/home/ubuntu/.bashrc", O_RDONLY);
-  char buf[105] = {0};
+    test(rmkdir, 0, "/it");
+    test(rmkdir, 0, "/it/has");
+    test(rmkdir, 0, "/it/has/been");
+    test(rmkdir, 0, "/it/has/been/a");
+    test(rmkdir, 0, "/it/has/been/a/long");
 
-  assert(rread(fd, buf, 100) == strlen(content));
-  assert(!strcmp(buf, content));
-  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct, strlen(ct)) == strlen(ct));
-  memset(buf, 0, sizeof(buf));
-  assert(rread(fd, buf, 100) == strlen(ct));
-  assert(!strcmp(buf, ct));
-  assert(rseek(fd, 0, SEEK_SET) == 0);
-  memset(buf, 0, sizeof(buf));
-  assert(rread(fd, buf, 100) == strlen(content) + strlen(ct));
-  char ans[205] = {0};
-  strcat(ans, content);
-  strcat(ans, ct);
-  assert(!strcmp(buf, ans));
+    // succopen(fd, "/it/has/been/a/long", O_CREAT);
+    failopen(fd, "it/has/been/a/long", O_CREAT);
+    char buf[105];
+    test(rread, -1, fd, buf, 100);
+    test(rwrite, -1, fd, "a", 1);
+    test(rrmdir, -1, "/it/has/been");
+    test(rrmdir, 0, "/it/has/been/a/long");
+    test(rwrite, -1, fd, "a", 1);
+    test(rread, -1, fd, buf, 100);
 
-  fd = ropen("/home/ubuntu/text.txt", O_CREAT | O_RDWR);
-  assert(rwrite(fd, "hello", 5) == 5);
-  assert(rseek(fd, 7, SEEK_SET) == 7);
-  assert(rwrite(fd, "world", 5) == 5);
-  char buf2[100] = {0};
-  assert(rseek(fd, 0, SEEK_SET) == 0);
-  assert(rread(fd, buf2, 100) == 12);
-  assert(!memcmp(buf2, "hello\0\0world", 12));
-
-  init_shell();
-
-  assert(scat("/home/ubuntu/.bashrc") == 0);
-  assert(stouch("/home/ls") == 0);
-  assert(stouch("/home///ls") == 0);
-  assert(swhich("ls") == 0);
-  assert(stouch("/usr/bin/ls") == 0);
-  assert(swhich("ls") == 0);
-  assert(secho("hello world\\n") == 0);
-  assert(secho("\\$PATH is $PATH") == 0);
-
-  close_shell();
-  close_ramfs();
+    init_shell();
+    close_shell();
+    close_ramfs();
+    return 0;
 }

@@ -31,6 +31,8 @@ struct local_filename {
 	struct local_token *head;
 };
 
+#define FNAME_MAX_LEN 32
+
 bool valid_fpath(const char *s)
 {
 	while (*s) {
@@ -125,7 +127,7 @@ static struct local_filename *get_local_filename(const char *fpath)
 		if (len == 0)
 			break;
 
-		if (len > 32)
+		if (len > FNAME_MAX_LEN)
 			ERR_RET(-1);
 
 		new_token = malloc(sizeof(*new_token));
@@ -203,6 +205,7 @@ static node *find_node(const struct local_token *token, node *current)
 
 	fnode = current;
 	while (token) {
+		TRACE("current=%s, child=%s\n", fnode->name, token->tok_name);
 		fnode = next_node(token, fnode);
 
 		if (!fnode || !token)
@@ -411,6 +414,9 @@ int ropen(const char *fpath, int flags)
 		remove_node(fnode);
 		fnode = NULL;
 	}
+
+	if (fnode && (flags & O_CREAT))
+		ERR_RET(-EINVAL);
 
 	if (!fnode && (flags & O_CREAT)) {
 		/**
@@ -718,10 +724,6 @@ int rrmdir(const char *fpath)
 
 err_ret:
 	free_local_filename(filename);
-
-	if (ret)
-		ERROR("%d\n", ret);
-
 	return ret >= 0 ? ret : -1;
 }
 
