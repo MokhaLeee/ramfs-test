@@ -539,7 +539,7 @@ int ropen(const char *fpath, int flags)
 		fnode = NULL;
 	}
 
-	if (fnode && (flags & O_TRUNC) && (flags & (O_WRONLY | O_RDWR))) {
+	if (fnode && fnode->type == FNODE && (flags & O_TRUNC) && (flags & (O_WRONLY | O_RDWR))) {
 		LOCAL_TRACE("recreate node=%s\n", fnode->name);
 		remove_node(fnode);
 		token = token_bak;
@@ -551,7 +551,7 @@ int ropen(const char *fpath, int flags)
 		ERR_RET(-EINVAL);
 #endif
 
-	if (!fnode && (flags & O_CREAT)) {
+	if (!fnode && (flags & (O_CREAT | O_TRUNC))) {
 		/**
 		 * try to create the file
 		 */
