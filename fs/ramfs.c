@@ -307,7 +307,7 @@ int scan_fpath(const char *fpath)
 		if (!fnode) {
 			LOCAL_TRACE("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->name);
 
-			fnode = next_node_direct(token, parent, FNODE);
+			fnode = next_node(token, parent, FNODE);
 
 			if (fnode) {
 				ERR_RET(SCAN_FPATH_ISNOTDIR);
