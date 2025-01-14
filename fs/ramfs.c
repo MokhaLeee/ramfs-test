@@ -217,7 +217,7 @@ err_ret:
 /**
  * node ops
  */
-node *next_node(const struct local_token *token, node *current, int type)
+node *next_node_ext(const struct local_token *token, node *current, int type, bool force)
 {
 	int i;
 	node *next_node = NULL;
@@ -238,7 +238,7 @@ node *next_node(const struct local_token *token, node *current, int type)
 
 	assert(token->tok_name != NULL);
 
-	if (token->next != NULL) {
+	if (token->next != NULL && !force) {
 		LOCAL_TRACE("node=%s, type=%d, next=%s\n", token->tok_name, type, token->next->tok_name);
 		// assert(type != FNODE);
 		type = DNODE;
@@ -266,6 +266,16 @@ node *next_node(const struct local_token *token, node *current, int type)
 	}
 
 	return next_node;
+}
+
+node *next_node(const struct local_token *token, node *current, int type)
+{
+	next_node_ext(token, current, type, false);
+}
+
+node *next_node_direct(const struct local_token *token, node *current, int type)
+{
+	next_node_ext(token, current, type, true);
 }
 
 int scan_fpath(const char *fpath)
@@ -297,7 +307,7 @@ int scan_fpath(const char *fpath)
 		if (!fnode) {
 			LOCAL_INFO("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->name);
 
-			fnode = next_node(token, parent, FNODE);
+			fnode = next_node_direct(token, parent, FNODE);
 
 			if (fnode) {
 				ERR_RET(SCAN_FPATH_ISNOTDIR);
