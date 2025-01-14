@@ -522,6 +522,9 @@ int ropen(const char *fpath, int flags)
 		token = token->next;
 	}
 
+	if (!parent)
+		parent = get_root();
+
 	if (fnode) {
 		LOCAL_TRACE("find node=%s, type=%d\n", fnode->name, fnode->type);
 	}
@@ -556,7 +559,7 @@ int ropen(const char *fpath, int flags)
 		 * try to create the file
 		 */
 		int depath=get_token_depth(token);
-		if (depath > 1 || !parent || parent->type != DNODE) {
+		if (depath > 1 || parent->type != DNODE) {
 			LOCAL_ERROR("error depth=%d, token=%s\n", depath, token->tok_name);
 			ERR_RET(-EINVAL);
 		}
