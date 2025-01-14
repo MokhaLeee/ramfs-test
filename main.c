@@ -9,6 +9,7 @@ char s[105] = "Hello World!\n";
 int main() {
     init_ramfs();
     init_shell();
+    int fd1 = ropen("/test", O_CREAT | O_RDWR | O_APPEND);
 
     close_shell();
     close_ramfs();
