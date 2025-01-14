@@ -52,6 +52,7 @@ int main() {
   assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct2, strlen(ct2)) == strlen(ct2));
   assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct3, strlen(ct3)) == strlen(ct3));
   assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct4, strlen(ct4)) == strlen(ct4));
+  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct5, strlen(ct5)) == strlen(ct5));
 
   init_shell();
 
