@@ -191,7 +191,7 @@ static void do_init_vars(void)
 
 						LOCAL_TRACE("get val(%s)=%s\n", varname, var_val);
 
-#if 1
+#if 0
 						new_var = get_value_from_var(varname);
 						if (new_var)
 							free_var(new_var, shell_vars);
@@ -220,6 +220,7 @@ static void do_init_vars(void)
 							new_var->pre = last;
 						}
 
+						LOCAL_INFO("%p %p\n", last, last->next);
 						LOCAL_TRACE("set val(%s)=%s\n", new_var->name, new_var->fpath);
 					}
 					end = j + 1;
