@@ -560,7 +560,8 @@ int ropen(const char *fpath, int flags)
 		 */
 		int depath=get_token_depth(token);
 		if (depath > 1 || parent->type != DNODE) {
-			LOCAL_ERROR("error depth=%d, token=%s\n", depath, token->tok_name);
+			LOCAL_ERROR("error depth=%d, token=%s, parent (%d)=%s\n",
+					depath, token->tok_name, parent->type, parent->name);
 			ERR_RET(-EINVAL);
 		}
 
