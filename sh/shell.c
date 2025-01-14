@@ -72,7 +72,7 @@ struct shell_path *get_value_from_var(const char *var_name)
 {
 	struct shell_path *var;
 
-	for (var = shell_vars; var != NULL; var++) {
+	for (var = shell_vars; var != NULL; var = var->next) {
 		assert(var->name != NULL);
 
 		if (strcmp(var_name, var->name) == 0) {
