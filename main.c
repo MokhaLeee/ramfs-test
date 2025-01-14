@@ -13,15 +13,10 @@ int main() {
     rwrite(fd1, s, strlen(s));
     rseek(fd1, 2, SEEK_SET);
     rwrite(fd1, s, strlen(s));
-
     scat("/test");
 
     int fd2 = ropen("/test", O_TRUNC | O_RDWR);
-    
-    scat("/test");
-    rwrite(fd2, s, strlen(s));
-    
-    scat("/test");
+
 
     close_shell();
     close_ramfs();
