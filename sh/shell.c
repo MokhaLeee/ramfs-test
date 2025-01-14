@@ -68,11 +68,6 @@ void free_var(struct shell_path *var)
 	free(var);
 }
 
-void free_all_vars(void)
-{
-
-}
-
 struct shell_path *get_value_from_var(const char *var_name)
 {
 	struct shell_path *var;
@@ -181,6 +176,10 @@ static void do_init_vars(void)
 
 						strncpy(varname, buffer + name_start, name_end - name_start);
 						parse_str(var_val, buffer + val_start, val_end - val_start);
+
+						new_var = get_value_from_var(varname);
+						if (new_var)
+							free_var(new_var);
 
 						new_var = malloc(sizeof(*new_var));
 						assert(new_var);
