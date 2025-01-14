@@ -512,12 +512,12 @@ int ropen(const char *fpath, int flags)
 
 	while (token) {
 		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		parent = fnode;
 		fnode = next_node(token, parent, token->next ? DNODE : FNODE);
 
 		if (!fnode)
 			break;
 
-		parent = fnode;
 		token_bak = token;
 		token = token->next;
 	}
