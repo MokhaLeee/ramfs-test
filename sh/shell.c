@@ -48,13 +48,15 @@ static bool path_exists(const char *fpath)
 }
 #endif
 
-void free_var(struct shell_path *var)
+void free_var(struct shell_path *var, struct shell_path *list_head)
 {
 	if (!var)
 		return;
 
 	if (var->pre)
 		var->pre->next = var->next;
+	else
+		list_head->next = var->next;
 
 	if (var->next)
 		var->next->pre = var->pre;
@@ -191,7 +193,7 @@ static void do_init_vars(void)
 
 						new_var = get_value_from_var(varname);
 						if (new_var)
-							free_var(new_var);
+							free_var(new_var, shell_vars);
 
 						new_var = malloc(sizeof(*new_var));
 						assert(new_var);
@@ -610,14 +612,14 @@ void close_shell(void)
 {
 	if (shell_vars) {
 		while (shell_vars->next)
-			free_var(shell_vars->next);
+			free_var(shell_vars->next, shell_vars);
 
 		free(shell_vars);
 	}
 
 	if (shell_path_head) {
 		while (shell_path_head->next)
-			free_var(shell_path_head->next);
+			free_var(shell_path_head->next, shell_path_head);
 
 		free(shell_path_head);
 	}
