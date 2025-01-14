@@ -561,7 +561,7 @@ int ropen(const char *fpath, int flags)
 			ERR_RET(-EINVAL);
 		}
 
-		// LOCAL_INFO("create node=%s\n", fnode->name);
+		LOCAL_INFO("create node=%s\n", token->tok_name);
 
 		/**
 		 * create node
