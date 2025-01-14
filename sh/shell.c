@@ -65,7 +65,7 @@ static void do_init_vars(void)
 	newline_offset = 0;
 	while (1) {
 		ssize_t i, bytes_read;
-		int prefix_len = 6; // strlen("export\0");
+		int prefix_len = 7; // strlen("export \0");
 
 		(void)rseek(fd, newline_offset, SEEK_SET);
 
@@ -88,7 +88,7 @@ static void do_init_vars(void)
 
 		LOCAL_TRACE("buf=%s\n", buffer);
 
-		if (strncmp(buffer, "export\n", prefix_len) == 0) {
+		if (strncmp(buffer, "export \n", prefix_len) == 0) {
 			/**
 			 * nice shoot!
 			 */
