@@ -75,6 +75,8 @@ struct shell_path *get_value_from_var(const char *var_name)
 	for (var = shell_vars; var != NULL; var = var->next) {
 		assert(var->name != NULL);
 
+		LOCAL_INFO("this var: $%s=%s\n", var->name, var->fpath);
+
 		if (strcmp(var_name, var->name) == 0) {
 			LOCAL_INFO("find var: $%s=%s\n", var->name, var->fpath);
 			return var;
