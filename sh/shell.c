@@ -193,7 +193,7 @@ static void do_init_vars(void)
 						strncpy(varname, buffer + name_start, name_end - name_start);
 						parse_str(var_val, buffer + val_start, val_end - val_start);
 
-						LOCAL_TRACE("get val(%s)=%s\n", varname, var_val);
+						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
 
 #if 1
 						new_var = get_value_from_var(varname);
