@@ -211,7 +211,7 @@ static void do_init_vars(void)
 
 							strcpy(new_var->name, varname);
 							strcpy(new_var->fpath, var_val);
-LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
+
 							new_var->next = NULL;
 							new_var->pre = NULL;
 
@@ -227,7 +227,6 @@ LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
 						}
 
 
-						LOCAL_INFO("%p %p\n", last, last->next);
 						LOCAL_TRACE("set val(%s)=%s\n", new_var->name, new_var->fpath);
 					}
 					end = j + 1;
