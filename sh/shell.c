@@ -57,7 +57,7 @@ static void do_init_shell(void)
 
 	fd = ropen("/home/ubuntu/.bashrc\0", O_RDONLY);
 	if (fd < 0) {
-		LOCAL_ERROR("open bashrc: %d\n", fd);
+		// LOCAL_ERROR("open bashrc: %d\n", fd);
 		return;
 	}
 
