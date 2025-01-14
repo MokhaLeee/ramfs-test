@@ -48,6 +48,31 @@ static bool path_exists(const char *fpath)
 }
 #endif
 
+void free_var(struct shell_path *var)
+{
+	if (!var)
+		return;
+
+	if (var->pre)
+		var->pre = var->next;
+
+	if (var->next)
+		var->next = var->pre;
+
+	if (var->fpath)
+		free(var->fpath);
+
+	if (var->name)
+		free(var->name);
+
+	free(var);
+}
+
+void free_all_vars(void)
+{
+
+}
+
 struct shell_path *get_value_from_var(const char *var_name)
 {
 	struct shell_path *var;
@@ -271,6 +296,7 @@ static void do_init_path(void)
 					if (shell_path_head)
 						shell_path_head->pre = new_path;
 
+					new_path->name = NULL;
 					new_path->next = shell_path_head;
 					new_path->pre = NULL;
 					shell_path_head = new_path;
@@ -558,12 +584,17 @@ void init_shell(void)
 
 void close_shell(void)
 {
-	struct shell_path *path = shell_path_head;
+	if (shell_vars) {
+		while (shell_vars->next)
+			free_var(shell_vars->next);
 
-	while (path) {
-		struct shell_path *next = path->next;
+		free(shell_vars);
+	}
 
-		free(path);
-		path = next;
+	if (shell_path_head) {
+		while (shell_path_head->next)
+			free_var(shell_path_head->next);
+
+		free(shell_path_head);
 	}
 }
