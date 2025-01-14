@@ -80,6 +80,7 @@ struct shell_path *get_value_from_var(const char *var_name)
 			return var;
 		}
 	}
+	LOCAL_INFO("failed to find var: %s\n", var_name);
 	return NULL;
 }
 
