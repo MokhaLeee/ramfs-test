@@ -27,7 +27,7 @@ static int shell_ret;
 
 struct shell_path {
 	struct shell_path *pre, *next;
-	char *fpath;
+	char *name, *fpath;
 };
 
 static struct shell_path *shell_path_head = NULL;
@@ -48,6 +48,47 @@ static bool path_exists(const char *fpath)
 }
 #endif
 
+struct shell_path *get_value_from_var(const char *var_name)
+{
+	struct shell_path *var;
+
+	for (var = shell_vars; var != NULL; var++) {
+		assert(var->fpath != NULL);
+
+		if (strcmp(var_name, var->name) == 0)
+			return var;
+	}
+	return NULL;
+}
+
+void parse_str(char *dst, char *src, int len)
+{
+	int i;
+	char ch;
+
+	for (i = 0; i < len; i++) {
+		ch = src[i];
+
+		if (ch == '\0') {
+			*dst++ = ch;
+			return;
+		}
+
+		if (ch == '$') {
+			struct shell_path *var = get_value_from_var(src + i + 1);
+
+			if (var) {
+				strcpy(dst, var->fpath);
+				dst += strlen(var->fpath);
+				i += strlen(var->name);
+				continue;
+			}
+		}
+
+		*dst++ = ch;
+	}
+}
+
 static void do_init_vars(void)
 {
 	int fd;
@@ -55,6 +96,7 @@ static void do_init_vars(void)
 	char buffer[BUFFER_SIZE];
 	char varname[BUFFER_SIZE];
 	char var_val[BUFFER_SIZE];
+	char parsed_var_val[BUFFER_SIZE];
 
 	fd = ropen("/home/ubuntu/.bashrc\0", O_RDONLY);
 	if (fd < 0) {
@@ -93,7 +135,6 @@ static void do_init_vars(void)
 			 * nice shoot!
 			 */
 			size_t j, start, end, len;
-			struct shell_path *new_path;
 
 			off_t name_start, name_end, val_start, val_end;
 
@@ -105,6 +146,8 @@ static void do_init_vars(void)
 			for (j = start; j < len; j++) {
 				if (buffer[j] == '\0') {
 					if (name_end > 0 && val_start > name_end) {
+						struct shell_path *new_var;
+
 						// valid
 						val_end = j;
 
@@ -112,11 +155,28 @@ static void do_init_vars(void)
 						memset(var_val, 0, sizeof(var_val));
 
 						strncpy(varname, buffer + name_start, name_end - name_start);
-						strncpy(var_val, buffer + val_start, val_end - val_start);
+						parse_str(var_val, buffer + val_start, val_end - val_start);
 
 						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
+
+						new_var = malloc(sizeof(*new_var));
+						assert(new_var);
+						new_var->name  = malloc(strlen(varname) + 1);
+						new_var->fpath = malloc(strlen(var_val) + 1);
+						assert(new_var->name);
+						assert(new_var->fpath);
+
+						strcpy(new_var->name, varname);
+						strcpy(new_var->fpath, var_val);
+
+						if (shell_vars)
+							shell_vars->pre = new_var;
+
+						new_var->next = shell_vars;
+						new_var->pre = NULL;
+						shell_vars = new_var;
 					}
-					end = j - 1;
+					end = j + 1;
 					break;
 				}
 
