@@ -247,98 +247,44 @@ static void do_init_vars(void)
 
 static void do_init_path(void)
 {
-	int fd;
-	ssize_t newline_offset;
-	char buffer[BUFFER_SIZE];
+	struct shell_path *var = get_value_from_var("PATH");
 
-	shell_path_head = malloc(sizeof(*shell_path_head));
-	assert(shell_path_head != NULL);
+	if (var) {
+		int i, len = strlen(var->fpath);
+		int start = 0;
+		int end = 0;
 
-	shell_path_head->fpath = malloc(2);
-	assert(shell_path_head->fpath != NULL);
+		for (i = 0; i < len; i++) {
+			if (var->fpath[i] == ':' || var->fpath[i] == '\0') {
+				struct shell_path *new_path, *last;
+				end = i;
 
-	shell_path_head->fpath[0] = '/';
-	shell_path_head->fpath[1] = '\0';
-	shell_path_head->pre = shell_path_head->next = NULL;
+				new_path = malloc(sizeof(struct shell_path));
+				assert(new_path != NULL);
 
-	fd = ropen("/home/ubuntu/.bashrc\0", O_RDONLY);
-	if (fd < 0) {
-		// LOCAL_ERROR("open bashrc: %d\n", fd);
-		return;
-	}
+				new_path->fpath = malloc(end - start + 1);
+				assert(new_path->fpath != NULL);
 
-	newline_offset = 0;
-	while (1) {
-		ssize_t i, bytes_read;
-		int prefix_len = 12; // strlen("export PATH=\n");
+				memset(new_path->fpath, 0, end - start + 1);
+				strncpy(new_path->fpath, var->fpath + start, end - start + 1);
 
-		(void)rseek(fd, newline_offset, SEEK_SET);
+				new_path->name = NULL;
+				new_path->pre = NULL;
+				new_path->next = NULL;
 
-		bytes_read = rread(fd, buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break;
+				if (!shell_path_head)
+					shell_path_head = new_path;
+				else {
+					for (last = shell_path_head; last->next != NULL; last = last->next)
+						;
 
-		if (buffer[0] == '\0')
-			break;
-
-		for (i = 0; i < bytes_read; i++) {
-			char ch = buffer[i];
-
-			if (ch == '\n' || ch == '\0')
-				break;
-		}
-
-		buffer[i] = '\0';
-		newline_offset += i + 1;
-
-		LOCAL_TRACE("buf=%s\n", buffer);
-
-		if (strncmp(buffer, "export PATH=\n", prefix_len) == 0) {
-			/**
-			 * nice shoot!
-			 */
-			size_t j, start, end, len;
-			struct shell_path *new_path, *last;
-
-			start = end = prefix_len;
-			len = strlen(buffer) + 1;
-
-			for (j = start; j < len; j++) {
-				if (buffer[j] == ':' || buffer[j] == '\0') {
-					end = j - 1;
-
-					if (strncmp(buffer + start, "$PATH", 5) == 0) {
-						start = j + 1;
-						continue;
-					}
-
-					new_path = malloc(sizeof(struct shell_path));
-					assert(new_path != NULL);
-
-					new_path->fpath = malloc(end - start + 1);
-					assert(new_path->fpath != NULL);
-
-					memset(new_path->fpath, 0, end - start + 1);
-					strncpy(new_path->fpath, buffer + start, end - start + 1);
-
-					new_path->name = NULL;
-					new_path->pre = NULL;
-					new_path->next = NULL;
-
-					if (!shell_path_head)
-						shell_path_head = new_path;
-					else {
-						for (last = shell_path_head; last->next != NULL; last = last->next)
-							;
-
-						last->next = new_path;
-						new_path->pre = last;
-					}
-
-
-					start = j + 1;
-					LOCAL_TRACE("get path: %s\n", new_path->fpath);
+					last->next = new_path;
+					new_path->pre = last;
 				}
+
+				start = i + 1;
+				if (var->fpath[i] == '\0')
+					break;
 			}
 		}
 	}
