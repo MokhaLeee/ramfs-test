@@ -353,6 +353,7 @@ static int do_swhich(const char *cmd)
 		return 1;
 
 	for (path = shell_path_head; path != NULL; path = path->next) {
+		LOCAL_INFO("which path=%s\n", path->fpath);
 		snprintf(buf, BUFFER_SIZE, "%s/%s", path->fpath, cmd);
 
 		fnode = find(buf, FNODE);
