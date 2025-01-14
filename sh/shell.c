@@ -189,9 +189,11 @@ static void do_init_vars(void)
 
 						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
 
+#if 0
 						new_var = get_value_from_var(varname);
 						if (new_var)
 							free_var(new_var);
+#endif
 
 						new_var = malloc(sizeof(*new_var));
 						assert(new_var);
