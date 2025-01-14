@@ -259,6 +259,8 @@ static void do_init_path(void)
 				struct shell_path *new_path, *last;
 				end = i;
 
+				LOCAL_INFO("path=%s\n", var->fpath + start);
+
 				new_path = malloc(sizeof(struct shell_path));
 				assert(new_path != NULL);
 
@@ -282,7 +284,7 @@ static void do_init_path(void)
 					new_path->pre = last;
 				}
 
-				LOCAL_INFO("find path: %s\n", new_path->fpath);
+				LOCAL_INFO("find path: %s\n", new_path->fpath + start);
 
 				start = i + 1;
 				if (var->fpath[i] == '\0')
