@@ -565,7 +565,7 @@ int ropen(const char *fpath, int flags)
 		LOCAL_TRACE("find node=%s, type=%d\n", fnode->name, fnode->type);
 	}
 
-	if (fnode && fnode->type == FNODE && flags & O_CREAT) {
+	if (fnode && fnode->type == FNODE && flags & O_CREAT && FLAG_GET_RD(flags) != O_RDONLY) {
 		ERR_RET(-EPERM);
 	}
 
