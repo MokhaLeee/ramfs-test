@@ -157,8 +157,6 @@ static void do_init_vars(void)
 						strncpy(varname, buffer + name_start, name_end - name_start);
 						parse_str(var_val, buffer + val_start, val_end - val_start);
 
-						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
-
 						new_var = malloc(sizeof(*new_var));
 						assert(new_var);
 						new_var->name  = malloc(strlen(varname) + 1);
@@ -175,6 +173,8 @@ static void do_init_vars(void)
 						new_var->next = shell_vars;
 						new_var->pre = NULL;
 						shell_vars = new_var;
+
+						LOCAL_INFO("get val(%s)=%s\n", new_var->name, new_var->fpath);
 					}
 					end = j + 1;
 					break;
