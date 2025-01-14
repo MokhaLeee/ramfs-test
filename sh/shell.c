@@ -16,6 +16,14 @@
  * internal
  */
 #define BUFFER_SIZE 4096
+static int shell_ret;
+
+#define ERR_RET(err_no) {              \
+	shell_ret = (err_no);              \
+	if ((err_no) < 0)                  \
+		LOCAL_ERROR("%d\n", (err_no)); \
+	goto err_ret;                      \
+}
 
 struct shell_path {
 	struct shell_path *pre, *next;
@@ -23,6 +31,7 @@ struct shell_path {
 };
 
 static struct shell_path *shell_path_head = NULL;
+static struct shell_path *shell_vars = NULL;
 
 #if 0
 static bool path_exists(const char *fpath)
@@ -39,7 +48,91 @@ static bool path_exists(const char *fpath)
 }
 #endif
 
-static void do_init_shell(void)
+static void do_init_vars(void)
+{
+	int fd;
+	ssize_t newline_offset;
+	char buffer[BUFFER_SIZE];
+	char varname[BUFFER_SIZE];
+	char var_val[BUFFER_SIZE];
+
+	fd = ropen("/home/ubuntu/.bashrc\0", O_RDONLY);
+	if (fd < 0) {
+		// LOCAL_ERROR("open bashrc: %d\n", fd);
+		return;
+	}
+
+	newline_offset = 0;
+	while (1) {
+		ssize_t i, bytes_read;
+		int prefix_len = 6; // strlen("export\0");
+
+		(void)rseek(fd, newline_offset, SEEK_SET);
+
+		bytes_read = rread(fd, buffer, BUFFER_SIZE);
+		if (bytes_read <= 0)
+			break;
+
+		if (buffer[0] == '\0')
+			break;
+
+		for (i = 0; i < bytes_read; i++) {
+			char ch = buffer[i];
+
+			if (ch == '\n' || ch == '\0')
+				break;
+		}
+
+		buffer[i] = '\0';
+		newline_offset += i + 1;
+
+		LOCAL_TRACE("buf=%s\n", buffer);
+
+		if (strncmp(buffer, "export\n", prefix_len) == 0) {
+			/**
+			 * nice shoot!
+			 */
+			size_t j, start, end, len;
+			struct shell_path *new_path;
+
+			off_t name_start, name_end, val_start, val_end;
+
+			start = end = prefix_len;
+			len = strlen(buffer) + 1;
+
+			name_start = name_end = val_start = val_end = 0;
+
+			for (j = start; j < len; j++) {
+				if (buffer[j] == '\0') {
+					if (name_end > 0 && val_start > name_end) {
+						// valid
+						val_end = j;
+
+						memset(varname, 0, sizeof(varname));
+						memset(var_val, 0, sizeof(var_val));
+
+						strncpy(varname, buffer + name_start, name_end - name_start);
+						strncpy(var_val, buffer + val_start, val_end - val_start);
+
+						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
+					}
+					end = j - 1;
+					break;
+				}
+
+				if (buffer[j] == '=') {
+					if (name_end == 0 && val_start == 0 && val_end == 0) {
+						// valid
+						name_end = j;
+						val_start = j + 1;
+					}
+				}
+			}
+		}
+	}
+}
+
+static void do_init_path(void)
 {
 	int fd;
 	ssize_t newline_offset;
@@ -130,6 +223,12 @@ static void do_init_shell(void)
 	}
 }
 
+static void do_init_shell(void)
+{
+	do_init_vars();
+	do_init_path();
+}
+
 static int do_swhich(const char *cmd)
 {
 	node *fnode;
@@ -187,7 +286,7 @@ int sls(const char *pathname)
 			break;
 		}
 
-		return 1;
+		ERR_RET(1);
 	}
 
 	LOCAL_TRACE("find node=%s\n", fnode->name);
@@ -210,7 +309,9 @@ int sls(const char *pathname)
 
 		fprintf(stdout, "\n");
 	}
-	return 0;
+
+err_ret:
+	return shell_ret;
 }
 
 int scat(const char *pathname)
@@ -222,7 +323,7 @@ int scat(const char *pathname)
 
 	if (!valid_fpath(pathname)) {
 		fprintf(stdout, "No such file or directory\n");
-		return 1;
+		ERR_RET(1);
 	}
 
 	fd = ropen(pathname, O_RDONLY);
@@ -248,13 +349,13 @@ int scat(const char *pathname)
 			break;
 		}
 
-		return 1;
+		ERR_RET(1);
 	}
 
 	ret = rseek(fd, 0, SEEK_SET);
 	if (ret != 0) {
 		LOCAL_ERROR("%d\n", ret);
-		return 1;
+		ERR_RET(1);
 	}
 
 	while (1) {
@@ -268,7 +369,10 @@ int scat(const char *pathname)
 	if (ch != '\n')
 		printf("\n");
 
-	return 0;
+	shell_ret = 0;
+
+err_ret:
+	return shell_ret;
 }
 
 int smkdir(const char *pathname)
@@ -304,10 +408,13 @@ int smkdir(const char *pathname)
 			break;
 		}
 
-		return 1;
+		ERR_RET(1);
 	}
 
-	return 0;
+	shell_ret = 0;
+
+err_ret:
+	return shell_ret;
 }
 
 int stouch(const char *pathname)
@@ -318,7 +425,7 @@ int stouch(const char *pathname)
 
 	if (!valid_fpath(pathname)) {
 		fprintf(stdout, "No such file or directory\n");
-		return 1;
+		ERR_RET(1);
 	}
 
 	fd = ropen(pathname, O_RDWR | O_CREAT);
@@ -330,7 +437,7 @@ int stouch(const char *pathname)
 		switch (scan_ret) {
 		case SCAN_FPATH_PASS_FNODE:
 		case SCAN_FPATH_PASS_DNODE:
-			return 0;
+			ERR_RET(0);
 			break;
 
 		case SCAN_FPATH_INVALID:
@@ -347,17 +454,20 @@ int stouch(const char *pathname)
 			break;
 		}
 
-		return 1;
+		ERR_RET(1);
 	}
 
 	ret = rclose(fd);
 	if (ret < 0) {
 		LOCAL_ERROR("%d\n", ret);
-		// return 1;
-		return 0;
+		// ERR_RET(1);
+		ERR_RET(0);
 	}
 
-	return 0;
+	shell_ret = 0;
+
+err_ret:
+	return shell_ret;
 }
 
 int secho(const char *content)
@@ -365,18 +475,25 @@ int secho(const char *content)
 	print("echo %s\n", content);
 
 	printf("%s\n", content);
-	return 0;
+	shell_ret = 0;
+
+err_ret:
+	return shell_ret;
 }
 
 int swhich(const char *cmd)
 {
 	print("which %s\n", cmd);
-	return do_swhich(cmd);
+
+	shell_ret = do_swhich(cmd);
+	return shell_ret;
 }
 
 void init_shell(void)
 {
 	do_init_shell();
+
+	shell_ret = 0;
 }
 
 void close_shell(void)
