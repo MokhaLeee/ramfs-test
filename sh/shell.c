@@ -260,7 +260,7 @@ static void do_init_path(void)
 				struct shell_path *new_path, *last;
 				end = i;
 
-				LOCAL_INFO("path=%s\n", var->fpath + start);
+				LOCAL_INFO("path=%s, start=%d, end=%d\n", var->fpath + start, start, end);
 
 				new_path = malloc(sizeof(struct shell_path));
 				assert(new_path != NULL);
