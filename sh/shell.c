@@ -171,7 +171,8 @@ int sls(const char *pathname)
 		LOCAL_ERROR("scan_ret=%d on fpath=%s\n", scan_ret, pathname);
 
 		switch (scan_ret) {
-		case SCAN_FPATH_PASS:
+		case SCAN_FPATH_PASS_FNODE:
+		case SCAN_FPATH_PASS_DNODE:
 		case SCAN_FPATH_INVALID:
 			break;
 
@@ -226,7 +227,7 @@ int scat(const char *pathname)
 		LOCAL_ERROR("scan_ret=%d on fpath=%s\n", scan_ret, pathname);
 
 		switch (scan_ret) {
-		case SCAN_FPATH_PASS:
+		case SCAN_FPATH_PASS_FNODE:
 		case SCAN_FPATH_INVALID:
 			break;
 
@@ -236,6 +237,7 @@ int scat(const char *pathname)
 			break;
 
 		case SCAN_FPATH_ISNOTDIR:
+		case SCAN_FPATH_PASS_DNODE:
 		default:
 			fprintf(stdout, "cat: %s: Not a directory\n", pathname);
 			break;
@@ -278,7 +280,7 @@ int smkdir(const char *pathname)
 		LOCAL_ERROR("scan_ret=%d on fpath=%s\n", scan_ret, pathname);
 
 		switch (scan_ret) {
-		case SCAN_FPATH_PASS:
+		case SCAN_FPATH_PASS_DNODE:
 			fprintf(stdout, "mkdir: cannot create directory '%s': File exists\n", pathname);
 			break;
 
@@ -290,6 +292,7 @@ int smkdir(const char *pathname)
 			fprintf(stdout, "mkdir: cannot create directory '%s': No such file or directory\n", pathname);
 			break;
 
+		case SCAN_FPATH_PASS_FNODE:
 		case SCAN_FPATH_ISNOTDIR:
 		default:
 			fprintf(stdout, "mkdir: cannot create directory '%s': Not a directory\n", pathname);
@@ -315,7 +318,8 @@ int stouch(const char *pathname)
 		LOCAL_ERROR("scan_ret=%d on fpath=%s\n", scan_ret, pathname);
 
 		switch (scan_ret) {
-		case SCAN_FPATH_PASS:
+		case SCAN_FPATH_PASS_FNODE:
+		case SCAN_FPATH_PASS_DNODE:
 		case SCAN_FPATH_INVALID:
 			break;
 
