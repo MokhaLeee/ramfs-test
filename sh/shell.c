@@ -80,7 +80,7 @@ struct shell_path *get_value_from_var(const char *var_name)
 	while (var != NULL) {
 		assert(var->name != NULL);
 
-		LOCAL_INFO("this var: %p %p, $%s=%s\n", var, var->next, var->name, var->fpath);
+		LOCAL_TRACE("this var: %p %p, $%s=%s\n", var, var->next, var->name, var->fpath);
 
 		if (strcmp(var_name, var->name) == 0) {
 			LOCAL_TRACE("find var: $%s=%s\n", var->name, var->fpath);
@@ -192,7 +192,7 @@ static void do_init_vars(void)
 						strncpy(varname, buffer + name_start, name_end - name_start);
 						parse_str(var_val, buffer + val_start, val_end - val_start);
 
-						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
+						LOCAL_TRACE("get val(%s)=%s\n", varname, var_val);
 
 						new_var = get_value_from_var(varname);
 						if (new_var) {
@@ -260,7 +260,7 @@ static void do_init_path(void)
 				struct shell_path *new_path, *last;
 				end = i;
 
-				LOCAL_INFO("path=%s, start=%d, end=%d\n", var->fpath + start, start, end);
+				LOCAL_TRACE("path=%s, start=%d, end=%d\n", var->fpath + start, start, end);
 
 				new_path = malloc(sizeof(struct shell_path));
 				assert(new_path != NULL);
@@ -285,7 +285,7 @@ static void do_init_path(void)
 					new_path->pre = last;
 				}
 
-				LOCAL_INFO("find path: %s\n", new_path->fpath);
+				LOCAL_TRACE("find path: %s\n", new_path->fpath);
 
 				start = i + 1;
 				if (var->fpath[i] == '\0')
@@ -311,7 +311,7 @@ static int do_swhich(const char *cmd)
 		return 1;
 
 	for (path = shell_path_head; path != NULL; path = path->next) {
-		LOCAL_INFO("which path=%s\n", path->fpath);
+		LOCAL_TRACE("which path=%s\n", path->fpath);
 		snprintf(buf, BUFFER_SIZE, "%s/%s", path->fpath, cmd);
 
 		fnode = find(buf, FNODE);
@@ -559,7 +559,7 @@ int secho(const char *content)
 		}
 
 		if (ch == '$') {
-			LOCAL_INFO("parse: %s\n", content + i + 1);
+			LOCAL_TRACE("parse: %s\n", content + i + 1);
 
 			struct shell_path *var = get_value_from_var(content + i + 1);
 
