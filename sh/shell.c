@@ -609,9 +609,11 @@ int secho(const char *content)
 
 				i += strlen(var->name);
 			}
-		}
+		} else
+			printf("%c", ch);
 	}
 
+	printf("\n");
 	shell_ret = 0;
 
 err_ret:
