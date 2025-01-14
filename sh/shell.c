@@ -77,17 +77,17 @@ struct shell_path *get_value_from_var(const char *var_name)
 	while (var != NULL) {
 		assert(var->name != NULL);
 
-		LOCAL_INFO("this var: %p %p, $%s=%s\n", var, var->next, var->name, var->fpath);
+		LOCAL_TRACE("this var: %p %p, $%s=%s\n", var, var->next, var->name, var->fpath);
 
 		if (strcmp(var_name, var->name) == 0) {
-			LOCAL_INFO("find var: $%s=%s\n", var->name, var->fpath);
+			LOCAL_TRACE("find var: $%s=%s\n", var->name, var->fpath);
 			return var;
 		}
 
 		var = var->next;
 	}
 
-	LOCAL_INFO("failed to find var: %s\n", var_name);
+	LOCAL_TRACE("failed to find var: %s\n", var_name);
 	return NULL;
 }
 
@@ -189,7 +189,7 @@ static void do_init_vars(void)
 						strncpy(varname, buffer + name_start, name_end - name_start);
 						parse_str(var_val, buffer + val_start, val_end - val_start);
 
-						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
+						LOCAL_TRACE("get val(%s)=%s\n", varname, var_val);
 
 #if 0
 						new_var = get_value_from_var(varname);
@@ -220,7 +220,7 @@ static void do_init_vars(void)
 							new_var->pre = last;
 						}
 
-						LOCAL_INFO("set val(%s)=%s\n", new_var->name, new_var->fpath);
+						LOCAL_TRACE("set val(%s)=%s\n", new_var->name, new_var->fpath);
 					}
 					end = j + 1;
 					break;
@@ -586,9 +586,32 @@ err_ret:
 
 int secho(const char *content)
 {
+	int i;
+	char ch;
+
 	print("echo %s\n", content);
 
-	printf("%s\n", content);
+	for (i = 0; content[i]; i++) {
+		ch = content[i];
+
+		if (ch == '\0') {
+			ERR_RET(0);
+		}
+
+		if (ch == '$') {
+			struct shell_path *var = get_value_from_var(content + i + 1);
+
+			if (var) {
+				int j;
+
+				for (j = 0; var->fpath[j]; j++)
+					printf("%c", var->fpath[j]);
+
+				i += strlen(var->name);
+			}
+		}
+	}
+
 	shell_ret = 0;
 
 err_ret:
