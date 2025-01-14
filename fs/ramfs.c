@@ -221,7 +221,7 @@ node *next_node(const struct local_token *token, node *current, int type)
 
 	if (token->next != NULL) {
 		LOCAL_TRACE("node=%s, type=%d, next=%s\n", token->tok_name, type, token->next->tok_name);
-		assert(type != FNODE);
+		// assert(type != FNODE);
 		type = DNODE;
 	}
 

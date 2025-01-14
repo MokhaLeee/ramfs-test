@@ -45,6 +45,16 @@ static void do_init_shell(void)
 	ssize_t newline_offset;
 	char buffer[BUFFER_SIZE];
 
+	shell_path_head = malloc(sizeof(*shell_path_head));
+	assert(shell_path_head != NULL);
+
+	shell_path_head->fpath = malloc(2);
+	assert(shell_path_head->fpath != NULL);
+
+	shell_path_head->fpath[0] = '/';
+	shell_path_head->fpath[1] = '\0';
+	shell_path_head->pre = shell_path_head->next = NULL;
+
 	fd = ropen("/home/ubuntu/.bashrc\0", O_RDONLY);
 	if (fd < 0) {
 		LOCAL_ERROR("open bashrc: %d\n", fd);
@@ -122,10 +132,24 @@ static void do_init_shell(void)
 
 static int do_swhich(const char *cmd)
 {
+	node *fnode;
+	struct shell_path *path;
+	char buf[BUFFER_SIZE];
+
 	if (!cmd || !*cmd || !valid_fpath(cmd))
 		return 1;
 
-	return 0;
+	for (path = shell_path_head; path != NULL; path = path->next) {
+		snprintf(buf, BUFFER_SIZE, "%s/%s", path->fpath, cmd);
+
+		fnode = find(buf, FNODE);
+		if (fnode) {
+			fprintf(stdout, "%s\n", buf);
+			return 0;
+		}
+	}
+
+	return 1;
 }
 
 /**
