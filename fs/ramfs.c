@@ -20,6 +20,16 @@ FD fdesc[NRFD];
 	goto err_ret;                      \
 }
 
+node *get_root(void)
+{
+	return root;
+}
+
+node *get_working_dir(void)
+{
+	return working_dir;
+}
+
 /**
  * string ops
  */
@@ -235,6 +245,61 @@ node *next_node(const struct local_token *token, node *current, int type)
 	}
 
 	return next_node;
+}
+
+int scan_fpath(const char *fpath)
+{
+	// detect is there any file in side a fpath
+	// hooly shit....
+
+	int ret;
+	node *fnode, *parent;
+	struct local_filename *filename;
+	struct local_token *token;
+
+	filename = get_local_filename(fpath);
+	if(!filename|| !filename->head) {
+		LOCAL_ERROR("invalid filename: %s\n", fpath);
+		ERR_RET(SCAN_FPATH_INVALID);
+	}
+
+	/**
+	 * find the node
+	 */
+	parent = working_dir;
+	token = filename->head;
+
+	while (token) {
+		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		fnode = next_node(token, parent, token->next ? DNODE : ANY_NODE);
+
+		if (!fnode) {
+			LOCAL_ERROR("failed to find fnode: %s\n", token->tok_name);
+			/**
+			 * error check
+			 */
+			if (token->next) {
+				fnode = next_node(token, parent, FNODE);
+				if (fnode) {
+					ERR_RET(SCAN_FPATH_ISNOTDIR);
+				} else {
+					ERR_RET(SCAN_FPATH_NODIR);
+				}
+			}
+
+			// although we failed to
+			ERR_RET(SCAN_FPATH_NOTARGET);
+		}
+
+		parent = fnode;
+		token = token->next;
+	}
+
+	ret = SCAN_FPATH_PASS;
+
+err_ret:
+	free_local_filename(filename);
+	return ret;
 }
 
 static node *find_node(const struct local_token *token, node *current, int type)
@@ -471,13 +536,16 @@ int ropen(const char *fpath, int flags)
 	}
 
 	if (fnode && (flags & O_TRUNC) && (flags & (O_WRONLY | O_RDWR))) {
+		LOCAL_TRACE("recreate node=%s\n", fnode->name);
 		remove_node(fnode);
 		token = token_bak;
 		fnode = NULL;
 	}
 
+#if 0
 	if (fnode && (flags & O_CREAT))
 		ERR_RET(-EINVAL);
+#endif
 
 	if (!fnode && (flags & O_CREAT)) {
 		/**
@@ -676,11 +744,11 @@ off_t rseek(int fd, off_t offset, int whence)
 		ERR_RET(-EINVAL);
 	}
 
-	LOCAL_TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
-			file->f->name, offset, new_offset, whence, file->f->size);
-
 	if (new_offset < 0)
 		new_offset = 0;
+
+	LOCAL_TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
+			file->f->name, offset, new_offset, whence, file->f->size);
 
 	if (new_offset > file->f->size)
 		node_realloc_content(file->f, new_offset);

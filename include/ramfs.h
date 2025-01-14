@@ -73,6 +73,19 @@ node *find(const char *fpath, int type);
 extern node *root;
 extern node *working_dir;
 
+node *get_root(void);
+node *get_working_dir(void);
+
+enum scan_fpath_ref {
+	SCAN_FPATH_PASS,
+	SCAN_FPATH_INVALID,
+	SCAN_FPATH_NODIR,
+	SCAN_FPATH_NOTARGET,
+	SCAN_FPATH_ISNOTDIR,
+};
+
+int scan_fpath(const char *fpath);
+
 /**
  * internal
  */
