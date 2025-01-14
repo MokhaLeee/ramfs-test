@@ -254,8 +254,7 @@ static void do_init_path(void)
 		int start = 0;
 		int end = 0;
 
-		for (i = 0; i < len; i++) {
-			LOCAL_INFO("c=%c\n", var->fpath[i]);
+		for (i = 0; i < len + 1; i++) {
 
 			if (var->fpath[i] == ':' || var->fpath[i] == '\0') {
 				struct shell_path *new_path, *last;
