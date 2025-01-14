@@ -108,7 +108,6 @@ void parse_str(char *dst, char *src, int len)
 		}
 
 		if (ch == '$') {
-			printf("111");
 			struct shell_path *var = get_value_from_var(src + i + 1);
 
 			if (var) {
@@ -606,6 +605,8 @@ int secho(const char *content)
 		}
 
 		if (ch == '$') {
+			LOCAL_INFO("parse %s\n", content + i + 1);
+
 			struct shell_path *var = get_value_from_var(content + i + 1);
 
 			if (var) {
