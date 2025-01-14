@@ -203,7 +203,8 @@ static void do_init_vars(void)
 						strcpy(new_var->name, varname);
 						strcpy(new_var->fpath, var_val);
 
-						new_var->next = new_var->pre = NULL;
+						new_var->next = NULL;
+						new_var->pre = NULL;
 
 						if (shell_vars == NULL)
 							shell_vars = new_var;
@@ -310,7 +311,8 @@ static void do_init_path(void)
 					strncpy(new_path->fpath, buffer + start, end - start + 1);
 
 					new_path->name = NULL;
-					new_path->pre = new_path->next = NULL;
+					new_path->pre = NULL;
+					new_path->next = NULL;
 
 					if (!shell_path_head)
 						shell_path_head = new_path;
