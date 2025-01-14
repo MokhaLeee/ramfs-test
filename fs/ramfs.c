@@ -295,7 +295,9 @@ int scan_fpath(const char *fpath)
 		token = token->next;
 	}
 
-	ret = SCAN_FPATH_PASS;
+	ret = fnode->type == FNODE ? SCAN_FPATH_PASS_FNODE :
+		  fnode->type == DNODE ? SCAN_FPATH_PASS_DNODE :
+		  SCAN_FPATH_INVALID;
 
 err_ret:
 	free_local_filename(filename);
