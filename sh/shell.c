@@ -556,9 +556,10 @@ int secho(const char *content)
 
 		if (ch == '\0') {
 			ERR_RET(0);
-		}
-
-		if (ch == '$') {
+		} else if (ch == '\\') {
+			i++;
+			printf("%c", content[i]);
+		} else if (ch == '$') {
 			LOCAL_TRACE("parse: %s\n", content + i + 1);
 
 			struct shell_path *var = get_value_from_var(content + i + 1);
