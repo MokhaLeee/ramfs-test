@@ -251,7 +251,7 @@ node *next_node_ext(const struct local_token *token, node *current, int type, bo
 
 		assert(child != NULL && child->name != NULL);
 
-		LOCAL_INFO("parent=%s, child=%s, type=%d, target=%d\n", current->name, child->name, child->type, type);
+		LOCAL_TRACE("parent=%s, child=%s, type=%d, target=%d\n", current->name, child->name, child->type, type);
 
 		if (strcmp(child->name, token->tok_name) == 0) {
 			/**
@@ -301,11 +301,11 @@ int scan_fpath(const char *fpath)
 	token = filename->head;
 
 	while (token) {
-		LOCAL_INFO("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
 		fnode = next_node(token, parent, token->next ? DNODE : ANY_NODE);
 
 		if (!fnode) {
-			LOCAL_INFO("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->name);
+			LOCAL_TRACE("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->name);
 
 			fnode = next_node_direct(token, parent, FNODE);
 
