@@ -4,56 +4,69 @@
 #include <stdlib.h>
 #include <assert.h>
 
-const char *content = "export PATH=/usr/bin/\n";
-const char *ct = "export PATH=/home:$PATH";
+int notin(int fd, int *fds, int n) {
+    for (int i = 0; i < n; i++) {
+    if (fds[i] == fd) return 0;
+    }
+    return 1;
+}
+int genfd(int *fds, int n) {
+    for (int i = 0; i < 4096; i++) {
+    if (notin(i, fds, n))
+    return i;
+    }
+    return -1;
+}
 int main() {
-  init_ramfs();
-
-  assert(rmkdir("/home") == 0);
-  assert(rmkdir("//home") == -1);
-  assert(rmkdir("/test/1") == -1);
-  assert(rmkdir("/home/ubuntu") == 0);
-  assert(rmkdir("/usr") == 0);
-  assert(rmkdir("/usr/bin") == 0);
-  assert(rwrite(ropen("/home///ubuntu//.bashrc", O_CREAT | O_WRONLY), content, strlen(content)) == strlen(content));
-  
-  int fd = ropen("/home/ubuntu/.bashrc", O_RDONLY);
-  char buf[105] = {0};
-
-  assert(rread(fd, buf, 100) == strlen(content));
-  assert(!strcmp(buf, content));
-  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct, strlen(ct)) == strlen(ct));
-  memset(buf, 0, sizeof(buf));
-  assert(rread(fd, buf, 100) == strlen(ct));
-  assert(!strcmp(buf, ct));
-  assert(rseek(fd, 0, SEEK_SET) == 0);
-  memset(buf, 0, sizeof(buf));
-  assert(rread(fd, buf, 100) == strlen(content) + strlen(ct));
-  char ans[205] = {0};
-  strcat(ans, content);
-  strcat(ans, ct);
-  assert(!strcmp(buf, ans));
-
-  fd = ropen("/home/ubuntu/text.txt", O_CREAT | O_RDWR);
-  assert(rwrite(fd, "hello", 5) == 5);
-  assert(rseek(fd, 7, SEEK_SET) == 7);
-  assert(rwrite(fd, "world", 5) == 5);
-  char buf2[100] = {0};
-  assert(rseek(fd, 0, SEEK_SET) == 0);
-  assert(rread(fd, buf2, 100) == 12);
-  assert(!memcmp(buf2, "hello\0\0world", 12));
-
-  init_shell();
-
-  assert(scat("/home/ubuntu/.bashrc") == 0);
-  assert(stouch("/home/ls") == 0);
-  assert(stouch("/home///ls") == 0);
-  assert(swhich("ls") == 0);
-  assert(stouch("/usr/bin/ls") == 0);
-  assert(swhich("ls") == 0);
-  assert(secho("hello world\\n") == 0);
-  assert(secho("\\$PATH is $PATH") == 0);
-
-  close_shell();
-  close_ramfs();
+    init_ramfs();
+    int fd[10];
+    int buf[10];
+    assert(ropen("/abc==d", O_CREAT) == -1);
+    assert((fd[0] = ropen("/0", O_RDONLY)) == -1);
+    assert((fd[0] = ropen("/0", O_CREAT | O_WRONLY)) >= 0);
+    assert((fd[1] = ropen("/1", O_CREAT | O_WRONLY)) >= 0);
+    assert((fd[2] = ropen("/2", O_CREAT | O_WRONLY)) >= 0);
+    assert((fd[3] = ropen("/3", O_CREAT | O_WRONLY)) >= 0);
+    assert(rread(fd[0], buf, 1) == -1);
+    assert(rread(fd[1], buf, 1) == -1);
+    assert(rread(fd[2], buf, 1) == -1);
+    assert(rread(fd[3], buf, 1) == -1);
+    for (int i = 0; i < 100; i++) {
+      assert(rwrite(fd[0], "\0\0\0\0\0", 5) == 5);
+      assert(rwrite(fd[1], "hello", 5) == 5);
+      assert(rwrite(fd[2], "world", 5) == 5);
+      assert(rwrite(fd[3], "\x001\x002\x003\x0fe\x0ff", 5) == 5);
+    }
+    assert(rclose(fd[0]) == 0);
+    assert(rclose(fd[1]) == 0);
+    assert(rclose(fd[2]) == 0);
+    assert(rclose(fd[3]) == 0);
+    assert(rclose(genfd(fd, 4)) == -1);
+    assert((fd[0] = ropen("/0", O_CREAT | O_RDONLY)) >= 0);
+    assert((fd[1] = ropen("/1", O_CREAT | O_RDONLY)) >= 0);
+    assert((fd[2] = ropen("/2", O_CREAT | O_RDONLY)) >= 0);
+    assert((fd[3] = ropen("/3", O_CREAT | O_RDONLY)) >= 0);
+    assert(rwrite(fd[0], buf, 1) == -1);
+    assert(rwrite(fd[1], buf, 1) == -1);
+    assert(rwrite(fd[2], buf, 1) == -1);
+    assert(rwrite(fd[3], buf, 1) == -1);
+    for (int i = 0; i < 50; i++) {
+      assert(rread(fd[0], buf, 10) == 10);
+      assert(memcmp(buf, "\0\0\0\0\0\0\0\0\0\0", 10) == 0);
+      assert(rread(fd[1], buf, 10) == 10);
+      assert(memcmp(buf, "hellohello", 10) == 0);
+      assert(rread(fd[2], buf, 10) == 10);
+      assert(memcmp(buf, "worldworld", 10) == 0);
+      assert(rread(fd[3], buf, 10) == 10);
+      assert(memcmp(buf, "\x001\x002\x003\x0fe\x0ff\x001\x002\x003\x0fe\x0ff", 10) == 0);
+    }
+    assert(rread(fd[0], buf, 10) == 0);
+    assert(rread(fd[1], buf, 10) == 0);
+    assert(rread(fd[2], buf, 10) == 0);
+    assert(rread(fd[3], buf, 10) == 0);
+    assert(rclose(fd[0]) == 0);
+    assert(rclose(fd[1]) == 0);
+    assert(rclose(fd[2]) == 0);
+    assert(rclose(fd[3]) == 0);
+    return 0;
 }
