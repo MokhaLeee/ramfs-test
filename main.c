@@ -5,7 +5,12 @@
 #include <assert.h>
 
 const char *content = "export PATH=/usr/bin/\n";
-const char *ct = "export PATH=/home:$PATH";
+const char *ct1 = "export PATH=/home:$PATH\n";
+const char *ct2 = "export PATH=/home:$PATH\n";
+const char *ct3 = "export PATH=/home:$PATH\n";
+const char *ct4 = "export PATH=/home:$PATH\n";
+const char *ct5 = "export mokha_PATH=/home:$PATH\n";
+
 int main() {
   init_ramfs();
 
@@ -22,16 +27,16 @@ int main() {
 
   assert(rread(fd, buf, 100) == strlen(content));
   assert(!strcmp(buf, content));
-  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct, strlen(ct)) == strlen(ct));
+  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct1, strlen(ct1)) == strlen(ct1));
   memset(buf, 0, sizeof(buf));
-  assert(rread(fd, buf, 100) == strlen(ct));
-  assert(!strcmp(buf, ct));
+  assert(rread(fd, buf, 100) == strlen(ct1));
+  assert(!strcmp(buf, ct1));
   assert(rseek(fd, 0, SEEK_SET) == 0);
   memset(buf, 0, sizeof(buf));
-  assert(rread(fd, buf, 100) == strlen(content) + strlen(ct));
+  assert(rread(fd, buf, 100) == strlen(content) + strlen(ct1));
   char ans[205] = {0};
   strcat(ans, content);
-  strcat(ans, ct);
+  strcat(ans, ct1);
   assert(!strcmp(buf, ans));
 
   fd = ropen("/home/ubuntu/text.txt", O_CREAT | O_RDWR);
@@ -42,6 +47,11 @@ int main() {
   assert(rseek(fd, 0, SEEK_SET) == 0);
   assert(rread(fd, buf2, 100) == 12);
   assert(!memcmp(buf2, "hello\0\0world", 12));
+
+  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct1, strlen(ct1)) == strlen(ct1));
+  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct2, strlen(ct2)) == strlen(ct2));
+  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct3, strlen(ct3)) == strlen(ct3));
+  assert(rwrite(ropen("/home////ubuntu//.bashrc", O_WRONLY | O_APPEND), ct4, strlen(ct4)) == strlen(ct4));
 
   init_shell();
 
