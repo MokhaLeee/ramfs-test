@@ -24,7 +24,7 @@ FD fdesc[NRFD];
  * string ops
  */
 struct local_token {
-	struct local_token *next;
+	struct local_token *pre, *next;
 	char *tok_name;
 };
 
@@ -141,10 +141,13 @@ static struct local_filename *get_local_filename(const char *fpath)
 
 		new_token->next = NULL;
 
-		if (token == NULL)
+		if (token == NULL) {
 			filename->head = new_token;
-		else
+			new_token->pre = filename->head;
+		} else {
 			token->next = new_token;
+			new_token->pre = token;
+		}
 
 		TRACE("trace token generation: token=%s, start=%d, len=%d\n", new_token->tok_name, start, len);
 
@@ -164,7 +167,7 @@ err_ret:
 /**
  * node ops
  */
-node *next_node(const struct local_token *token, node *current)
+node *next_node(const struct local_token *token, node *current, int type)
 {
 	int i;
 	node *next_node = NULL;
@@ -180,6 +183,12 @@ node *next_node(const struct local_token *token, node *current)
 	if (current == NULL || token->tok_name[0] == '/')
 		current = root;
 
+	if (token->next != NULL) {
+		TRACE("node=%s, type=%d, next=%s\n", token->tok_name, type, token->next->tok_name);
+		assert(type != FNODE);
+		type = DNODE;
+	}
+
 	// todo: ./../?
 
 	for (i = 0; i < current->nrde; i++) {
@@ -188,6 +197,12 @@ node *next_node(const struct local_token *token, node *current)
 		assert(child != NULL && child->name != NULL);
 
 		if (strcmp(child->name, token->tok_name) == 0) {
+			/**
+			 * check the type
+			 */
+			if (type != INVALID_NODE && type != child->type)
+				continue;
+
 			next_node = child;
 			break;
 		}
@@ -196,7 +211,7 @@ node *next_node(const struct local_token *token, node *current)
 	return next_node;
 }
 
-static node *find_node(const struct local_token *token, node *current)
+static node *find_node(const struct local_token *token, node *current, int type)
 {
 	struct node *fnode;
 
@@ -206,7 +221,8 @@ static node *find_node(const struct local_token *token, node *current)
 	fnode = current;
 	while (token) {
 		TRACE("current=%s, child=%s\n", fnode->name, token->tok_name);
-		fnode = next_node(token, fnode);
+		fnode = next_node(token, fnode, type);
+		token = token->next;
 
 		if (!fnode || !token)
 			break;
@@ -262,6 +278,7 @@ static node *spawn_node(const struct local_token *token, node *parent, int type)
 		}
 	}
 
+	TRACE("node=%s, type=%d\n", fnode->name, fnode->type);
 	return fnode;
 }
 
@@ -275,8 +292,10 @@ static node *create_root(void)
 
 static node *create_node(const struct local_token *token, node *parent, int type)
 {
-	if (!token || !token->tok_name)
+	if (!token || !token->tok_name) {
+		ERROR("invalid token, parent=%s!\n", parent ? parent->name : "no parent");
 		return NULL;
+	}
 
 	// todo: how should we handle the case parent does not exist?
 
@@ -351,7 +370,7 @@ static void node_realloc_content(node *fnode, int max_size)
 /**
  * API
  */
-node *find(const char *fpath)
+node *find(const char *fpath, int type)
 {
 	struct local_filename *filename;
 
@@ -359,7 +378,7 @@ node *find(const char *fpath)
 	if(!filename|| !filename->head)
 		return NULL;
 
-	return find_node(filename->head, working_dir);
+	return find_node(filename->head, working_dir, type);
 }
 
 int ropen(const char *fpath, int flags)
@@ -368,7 +387,7 @@ int ropen(const char *fpath, int flags)
 	bool fd_alloced;
 	node *fnode, *parent;
 	struct local_filename *filename;
-	struct local_token *token;
+	struct local_token *token, *token_bak;
 
 	/**
 	 * Judge invalid flags
@@ -398,20 +417,36 @@ int ropen(const char *fpath, int flags)
 	 * find the node
 	 */
 	parent = working_dir;
-	token = filename->head;
+	token_bak = token = filename->head;
 
 	while (token) {
-		fnode = next_node(token, parent);
+		TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		fnode = next_node(token, parent, token->next ? DNODE : FNODE);
 
 		if (!fnode)
 			break;
 
 		parent = fnode;
+		token_bak = token;
 		token = token->next;
+	}
+
+	if (fnode) {
+		TRACE("find node=%s, type=%d\n", fnode->name, fnode->type);
+	}
+
+	/**
+	 * ?
+	 */
+	if (fnode && fnode->type == DNODE) {
+		TRACE("find a DNODE with same name: %s\n", fnode->name);
+		token = token_bak;
+		fnode = NULL;
 	}
 
 	if (fnode && (flags & O_TRUNC) && (flags & (O_WRONLY | O_RDWR))) {
 		remove_node(fnode);
+		token = token_bak;
 		fnode = NULL;
 	}
 
@@ -422,8 +457,11 @@ int ropen(const char *fpath, int flags)
 		/**
 		 * try to create the file
 		 */
-		if (get_token_depth(token) > 1 || !parent || parent->type != DNODE)
+		int depath=get_token_depth(token);
+		if (depath > 1 || !parent || parent->type != DNODE) {
+			ERROR("error depth=%d, token=%s\n", depath, token->tok_name);
 			ERR_RET(-EINVAL);
+		}
 
 		/**
 		 * create node
@@ -646,9 +684,8 @@ int rmkdir(const char *fpath)
 	token = filename->head;
 
 	while (token) {
-		fnode = next_node(token, parent);
-
-		TRACE("find node: %s\n", token->tok_name);
+		TRACE("current=%s, child=%s\n", parent->name, token->tok_name);
+		fnode = next_node(token, parent, DNODE);
 
 		if (!fnode)
 			break;
@@ -695,7 +732,7 @@ int rrmdir(const char *fpath)
 	/**
 	 * find node
 	 */
-	fnode = find_node(filename->head, working_dir);
+	fnode = find_node(filename->head, working_dir, DNODE);
 	if (!fnode)
 		ERR_RET(-EPERM);
 
@@ -740,7 +777,7 @@ int runlink(const char *fpath)
 	/**
 	 * 1. find the node
 	 */
-	fnode = find_node(filename->head, working_dir);
+	fnode = find_node(filename->head, working_dir, FNODE);
 	if (!fnode)
 		ERR_RET(-1);
 

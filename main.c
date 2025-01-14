@@ -20,7 +20,7 @@ int main() {
     test(rmkdir, 0, "/it/has/been/a");
     test(rmkdir, 0, "/it/has/been/a/long");
 
-    // succopen(fd, "/it/has/been/a/long", O_CREAT);
+    succopen(fd, "/it/has/been/a/long", O_CREAT);
     failopen(fd, "it/has/been/a/long", O_CREAT);
     char buf[105];
     test(rread, -1, fd, buf, 100);

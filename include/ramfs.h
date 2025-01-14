@@ -20,7 +20,7 @@
 #define NRDE_GRP 40
 
 typedef struct node {
-	enum { FNODE, DNODE } type;
+	enum { FNODE, DNODE, INVALID_NODE } type;
 	struct node *parent;
 	struct node **dirents; // if DTYPE
 	void *content;
@@ -50,7 +50,7 @@ int rrmdir(const char *pathname);
 int runlink(const char *pathname);
 void init_ramfs(void);
 void close_ramfs(void);
-node *find(const char *pathname);
+node *find(const char *fpath, int type);
 
 /**
  * internal
