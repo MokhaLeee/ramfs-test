@@ -540,7 +540,7 @@ int ropen(const char *fpath, int flags)
 	}
 
 	if (fnode && fnode->type == FNODE && (flags & O_TRUNC) && (flags & (O_WRONLY | O_RDWR))) {
-		LOCAL_INFO("recreate node=%s\n", fnode->name);
+		LOCAL_TRACE("trunc node=%s\n", fnode->name);
 		remove_node(fnode);
 		token = token_bak;
 		fnode = NULL;
@@ -560,6 +560,8 @@ int ropen(const char *fpath, int flags)
 			LOCAL_ERROR("error depth=%d, token=%s\n", depath, token->tok_name);
 			ERR_RET(-EINVAL);
 		}
+
+		LOCAL_INFO("create node=%s\n", fnode->name);
 
 		/**
 		 * create node
