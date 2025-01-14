@@ -298,9 +298,10 @@ int scan_fpath(const char *fpath)
 			fnode = next_node(token, parent, FNODE);
 
 			if (fnode) {
-				printf("111");
 				ERR_RET(SCAN_FPATH_ISNOTDIR);
 			}
+
+			LOCAL_INFO("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->name);
 
 			/**
 			 * error check
