@@ -511,7 +511,7 @@ int ropen(const char *fpath, int flags)
 	token_bak = token = filename->head;
 
 	while (token) {
-		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		LOCAL_INFO("find token: current=%s, token=%s\n", parent->name, token->tok_name);
 		parent = fnode;
 		fnode = next_node(token, parent, token->next ? DNODE : FNODE);
 
