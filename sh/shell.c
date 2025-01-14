@@ -75,7 +75,7 @@ struct shell_path *get_value_from_var(const char *var_name)
 	while (var != NULL) {
 		assert(var->name != NULL);
 
-		LOCAL_INFO("this var: $%s=%s\n", var->name, var->fpath);
+		LOCAL_INFO("this var: %p, $%s=%s\n", var, var->name, var->fpath);
 
 		if (strcmp(var_name, var->name) == 0) {
 			LOCAL_INFO("find var: $%s=%s\n", var->name, var->fpath);
@@ -205,7 +205,7 @@ static void do_init_vars(void)
 
 						new_var->next = new_var->pre = NULL;
 
-						if (!shell_vars)
+						if (shell_vars == NULL)
 							shell_vars = new_var;
 						else {
 							for (last = shell_vars; last->next != NULL; last = last->next)
