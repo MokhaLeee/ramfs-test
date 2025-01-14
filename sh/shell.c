@@ -205,13 +205,13 @@ static void do_init_vars(void)
 							assert(new_var);
 							new_var->name  = malloc(strlen(varname) + 1);
 							new_var->fpath = malloc(strlen(var_val) + 1);
-LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
+
 							assert(new_var->name);
 							assert(new_var->fpath);
 
 							strcpy(new_var->name, varname);
 							strcpy(new_var->fpath, var_val);
-
+LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
 							new_var->next = NULL;
 							new_var->pre = NULL;
 
