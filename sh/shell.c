@@ -183,6 +183,7 @@ static void do_init_vars(void)
 						if (new_var)
 							free_var(new_var);
 
+						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
 						new_var = malloc(sizeof(*new_var));
 						assert(new_var);
 						new_var->name  = malloc(strlen(varname) + 1);
@@ -200,7 +201,7 @@ static void do_init_vars(void)
 						new_var->pre = NULL;
 						shell_vars = new_var;
 
-						LOCAL_INFO("get val(%s)=%s\n", new_var->name, new_var->fpath);
+						LOCAL_INFO("set val(%s)=%s\n", new_var->name, new_var->fpath);
 					}
 					end = j + 1;
 					break;
