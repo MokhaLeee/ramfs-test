@@ -75,8 +75,10 @@ struct shell_path *get_value_from_var(const char *var_name)
 	for (var = shell_vars; var != NULL; var++) {
 		assert(var->fpath != NULL);
 
-		if (strcmp(var_name, var->name) == 0)
+		if (strcmp(var_name, var->name) == 0) {
+			LOCAL_INFO("find var: $%s=%s\n", var->name, var->fpath);
 			return var;
+		}
 	}
 	return NULL;
 }
@@ -183,7 +185,6 @@ static void do_init_vars(void)
 						if (new_var)
 							free_var(new_var);
 
-						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
 						new_var = malloc(sizeof(*new_var));
 						assert(new_var);
 						new_var->name  = malloc(strlen(varname) + 1);
