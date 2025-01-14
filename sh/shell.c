@@ -419,7 +419,7 @@ int scat(const char *pathname)
 		case SCAN_FPATH_ISNOTDIR:
 		case SCAN_FPATH_PASS_DNODE:
 		default:
-			fprintf(stdout, "cat: %s: Not a directory\n", pathname);
+			fprintf(stdout, "cat: %s: Is a directory\n", pathname);
 			break;
 		}
 
