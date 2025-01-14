@@ -220,6 +220,11 @@ int scat(const char *pathname)
 
 	print("cat %s\n", pathname);
 
+	if (!valid_fpath(pathname)) {
+		fprintf(stdout, "No such file or directory\n");
+		return 1;
+	}
+
 	fd = ropen(pathname, O_RDONLY);
 	if (fd < 0) {
 		int scan_ret = scan_fpath(pathname);
@@ -254,7 +259,7 @@ int scat(const char *pathname)
 
 	while (1) {
 		ret = rread(fd, &ch, 1);
-		if (ret != 1)
+		if (ret != 1 || ch == '\0')
 			break;
 
 		printf("%c", ch);
@@ -311,6 +316,11 @@ int stouch(const char *pathname)
 
 	print("touch %s\n", pathname);
 
+	if (!valid_fpath(pathname)) {
+		fprintf(stdout, "No such file or directory\n");
+		return 1;
+	}
+
 	fd = ropen(pathname, O_RDWR | O_CREAT);
 	if (fd < 0) {
 		int scan_ret = scan_fpath(pathname);
@@ -320,6 +330,9 @@ int stouch(const char *pathname)
 		switch (scan_ret) {
 		case SCAN_FPATH_PASS_FNODE:
 		case SCAN_FPATH_PASS_DNODE:
+			return 0;
+			break;
+
 		case SCAN_FPATH_INVALID:
 			break;
 
