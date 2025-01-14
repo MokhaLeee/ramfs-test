@@ -13,28 +13,22 @@ FD fdesc[NRFD];
 
 #define FNAME_MAX_LEN 32
 
-#define ERR_RET(err_no) {        \
-	ret = (err_no);              \
-	if ((err_no) < 0)            \
-		ERROR("%d\n", (err_no)); \
-	goto err_ret;                \
+#define ERR_RET(err_no) {              \
+	ret = (err_no);                    \
+	if ((err_no) < 0)                  \
+		LOCAL_ERROR("%d\n", (err_no)); \
+	goto err_ret;                      \
 }
 
 /**
  * string ops
  */
-struct local_token {
-	struct local_token *pre, *next;
-	char *tok_name;
-};
-
-struct local_filename {
-	const char *uptr;
-	struct local_token *head;
-};
 
 bool valid_fpath(const char *s)
 {
+	if (!s || !*s)
+		return false;
+
 	while (*s) {
 		switch (*s++) {
 		case '0' ... '9':
@@ -53,27 +47,13 @@ bool valid_fpath(const char *s)
 	return true;
 }
 
-static void get_token(const char *s, int *start, int *len)
-{
-	*start = *len = 0;
-
-	while (*s && *s == '/')
-		s++, (*start)++;
-
-	while (*s && *s != '/')
-		s++, (*len)++;
-
-	while (*s && *s == '/')
-		s++;
-}
-
-static int get_token_depth(struct local_token *token)
+int get_token_depth(struct local_token *token)
 {
 	int ret = 0;
 
 	while (token) {
 		assert(token->tok_name != NULL);
-		TRACE("depth=%d, token=%s\n", ret, token->tok_name);
+		LOCAL_TRACE("depth=%d, token=%s\n", ret, token->tok_name);
 
 		ret++;
 		token = token->next;
@@ -81,7 +61,16 @@ static int get_token_depth(struct local_token *token)
 	return ret >= 0 ? ret : -1;
 }
 
-static void free_local_filename(struct local_filename *filename)
+bool token_is_leaf(struct local_token *token)
+{
+#if 0
+	// not fast enough
+	return get_token_depth(token) == 0;
+#endif
+	return (!token || !token->next);
+}
+
+void free_local_filename(struct local_filename *filename)
 {
 	struct local_token *token;
 
@@ -102,7 +91,21 @@ static void free_local_filename(struct local_filename *filename)
 	free(token);
 }
 
-static struct local_filename *get_local_filename(const char *fpath)
+static void spawn_token(const char *s, int *start, int *len)
+{
+	*start = *len = 0;
+
+	while (*s && *s == '/')
+		s++, (*start)++;
+
+	while (*s && *s != '/')
+		s++, (*len)++;
+
+	while (*s && *s == '/')
+		s++;
+}
+
+struct local_filename *get_local_filename(const char *fpath)
 {
 	int ret, start, len;
 	struct local_token *token;
@@ -119,10 +122,28 @@ static struct local_filename *get_local_filename(const char *fpath)
 	filename->uptr = fpath;
 	filename->head = token = NULL;
 
+	if (*fpath == '/') {
+		struct local_token *new_token;
+		// root
+		new_token = malloc(sizeof(*new_token));
+		assert(new_token != NULL);
+		new_token->tok_name = malloc(2);
+		assert(new_token->tok_name != NULL);
+
+		new_token->tok_name[0] = '/';
+		new_token->tok_name[1] = '\0';
+		new_token->next = NULL;
+
+		filename->head = new_token;
+		new_token->pre = filename->head;
+
+		fpath++;
+	}
+
 	for (;;) {
 		struct local_token *new_token;
 
-		get_token(fpath, &start, &len);
+		spawn_token(fpath, &start, &len);
 
 		if (len == 0)
 			break;
@@ -149,7 +170,7 @@ static struct local_filename *get_local_filename(const char *fpath)
 			new_token->pre = token;
 		}
 
-		TRACE("trace token generation: token=%s, start=%d, len=%d\n", new_token->tok_name, start, len);
+		LOCAL_TRACE("trace token generation: token=%s, start=%d, len=%d\n", new_token->tok_name, start, len);
 
 		fpath = fpath + start + len;
 		token = new_token;
@@ -175,16 +196,21 @@ node *next_node(const struct local_token *token, node *current, int type)
 	if (token == NULL)
 		return NULL;
 
+	if (current == NULL)
+		current = working_dir;
+
+	if (token->tok_name[0] == '/') {
+		// current = root;
+		return root;
+	}
+
 	if (current->type != DNODE || current->dirents == NULL || current->nrde == 0)
 		return NULL;
 
 	assert(token->tok_name != NULL);
 
-	if (current == NULL || token->tok_name[0] == '/')
-		current = root;
-
 	if (token->next != NULL) {
-		TRACE("node=%s, type=%d, next=%s\n", token->tok_name, type, token->next->tok_name);
+		LOCAL_TRACE("node=%s, type=%d, next=%s\n", token->tok_name, type, token->next->tok_name);
 		assert(type != FNODE);
 		type = DNODE;
 	}
@@ -200,7 +226,7 @@ node *next_node(const struct local_token *token, node *current, int type)
 			/**
 			 * check the type
 			 */
-			if (type != INVALID_NODE && type != child->type)
+			if (type != ANY_NODE && type != child->type)
 				continue;
 
 			next_node = child;
@@ -220,7 +246,7 @@ static node *find_node(const struct local_token *token, node *current, int type)
 
 	fnode = current;
 	while (token) {
-		TRACE("current=%s, child=%s\n", fnode->name, token->tok_name);
+		LOCAL_TRACE("current=%s, child=%s\n", fnode->name, token->tok_name);
 		fnode = next_node(token, fnode, type);
 		token = token->next;
 
@@ -278,7 +304,7 @@ static node *spawn_node(const struct local_token *token, node *parent, int type)
 		}
 	}
 
-	TRACE("node=%s, type=%d\n", fnode->name, fnode->type);
+	LOCAL_TRACE("node=%s, type=%d\n", fnode->name, fnode->type);
 	return fnode;
 }
 
@@ -293,7 +319,7 @@ static node *create_root(void)
 static node *create_node(const struct local_token *token, node *parent, int type)
 {
 	if (!token || !token->tok_name) {
-		ERROR("invalid token, parent=%s!\n", parent ? parent->name : "no parent");
+		LOCAL_ERROR("invalid token, parent=%s!\n", parent ? parent->name : "no parent");
 		return NULL;
 	}
 
@@ -420,7 +446,7 @@ int ropen(const char *fpath, int flags)
 	token_bak = token = filename->head;
 
 	while (token) {
-		TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
 		fnode = next_node(token, parent, token->next ? DNODE : FNODE);
 
 		if (!fnode)
@@ -432,14 +458,14 @@ int ropen(const char *fpath, int flags)
 	}
 
 	if (fnode) {
-		TRACE("find node=%s, type=%d\n", fnode->name, fnode->type);
+		LOCAL_TRACE("find node=%s, type=%d\n", fnode->name, fnode->type);
 	}
 
 	/**
 	 * ?
 	 */
 	if (fnode && fnode->type == DNODE) {
-		TRACE("find a DNODE with same name: %s\n", fnode->name);
+		LOCAL_TRACE("find a DNODE with same name: %s\n", fnode->name);
 		token = token_bak;
 		fnode = NULL;
 	}
@@ -459,7 +485,7 @@ int ropen(const char *fpath, int flags)
 		 */
 		int depath=get_token_depth(token);
 		if (depath > 1 || !parent || parent->type != DNODE) {
-			ERROR("error depth=%d, token=%s\n", depath, token->tok_name);
+			LOCAL_ERROR("error depth=%d, token=%s\n", depath, token->tok_name);
 			ERR_RET(-EINVAL);
 		}
 
@@ -565,9 +591,9 @@ ssize_t rwrite(int fd, const void *buf, size_t count)
 	file->offset += count;
 	ret = count;
 
-	TRACE("file=%s, offset=%d\n", file->f->name, file->offset);
-	TRACE("src=%s\n", (const char *)buf);
-	TRACE("dst=%s\n", (char *)file->f->content);
+	LOCAL_TRACE("file=%s, offset=%d\n", file->f->name, file->offset);
+	LOCAL_TRACE("src=%s\n", (const char *)buf);
+	LOCAL_TRACE("dst=%s\n", (char *)file->f->content);
 
 err_ret:
 	return ret >= 0 ? ret : -1;
@@ -588,7 +614,7 @@ ssize_t rread(int fd, void *buf, size_t count)
 	if (file->used != true)
 		ERR_RET(-EBADF);
 
-	TRACE("flags=0x%04X\n", file->flags);
+	LOCAL_TRACE("flags=0x%04X\n", file->flags);
 
 	switch (FLAG_GET_RD(file->flags)) {
 	case O_RDONLY:
@@ -618,7 +644,7 @@ ssize_t rread(int fd, void *buf, size_t count)
 	file->offset += count;
 	ret = count;
 
-	TRACE("file=%s, len=%d, buf=%s\n", file->f->name, ret, (char *)buf);
+	LOCAL_TRACE("file=%s, len=%d, buf=%s\n", file->f->name, ret, (char *)buf);
 
 err_ret:
 	return ret >= 0 ? ret : -1;
@@ -650,7 +676,7 @@ off_t rseek(int fd, off_t offset, int whence)
 		ERR_RET(-EINVAL);
 	}
 
-	TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
+	LOCAL_TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
 			file->f->name, offset, new_offset, whence, file->f->size);
 
 	if (new_offset < 0)
@@ -684,7 +710,7 @@ int rmkdir(const char *fpath)
 	token = filename->head;
 
 	while (token) {
-		TRACE("current=%s, child=%s\n", parent->name, token->tok_name);
+		LOCAL_TRACE("current=%s, child=%s\n", parent->name, token->tok_name);
 		fnode = next_node(token, parent, DNODE);
 
 		if (!fnode)
@@ -703,7 +729,7 @@ int rmkdir(const char *fpath)
 	 */
 	depth = get_token_depth(token);
 	if (depth > 1 || !parent || parent->type != DNODE) {
-		ERROR("no parrent, depth=%d\n", depth);
+		LOCAL_ERROR("no parrent, depth=%d\n", depth);
 		ERR_RET(-EINVAL);
 	}
 

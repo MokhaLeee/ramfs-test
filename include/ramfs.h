@@ -20,7 +20,7 @@
 #define NRDE_GRP 40
 
 typedef struct node {
-	enum { FNODE, DNODE, INVALID_NODE } type;
+	enum { FNODE, DNODE, ANY_NODE } type;
 	struct node *parent;
 	struct node **dirents; // if DTYPE
 	void *content;
@@ -40,6 +40,24 @@ typedef intptr_t ssize_t;
 typedef uintptr_t size_t;
 typedef long off_t;
 
+struct local_token {
+	struct local_token *pre, *next;
+	char *tok_name;
+};
+
+struct local_filename {
+	const char *uptr;
+	struct local_token *head;
+};
+
+bool valid_fpath(const char *s);
+bool token_is_leaf(struct local_token *token);
+void free_local_filename(struct local_filename *filename);
+struct local_filename *get_local_filename(const char *fpath);
+int get_token_depth(struct local_token *token);
+
+node *next_node(const struct local_token *token, node *current, int type);
+
 int ropen(const char *pathname, int flags);
 int rclose(int fd);
 ssize_t rwrite(int fd, const void *buf, size_t count);
@@ -52,6 +70,9 @@ void init_ramfs(void);
 void close_ramfs(void);
 node *find(const char *fpath, int type);
 
+extern node *root;
+extern node *working_dir;
+
 /**
  * internal
  */
@@ -63,19 +84,19 @@ node *find(const char *fpath, int type);
 #define dprintf(prefix, format, ...) printf(prefix"(%s:%d: %s) "format, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
 
 #if TRACE_EN
-#define TRACE(...) dprintf("[TRACE]", __VA_ARGS__)
+#define LOCAL_TRACE(...) dprintf("[TRACE]", __VA_ARGS__)
 #else
-#define TRACE(...)
+#define LOCAL_TRACE(...)
 #endif
 
 #if INFO_EN
-#define INFO(...)  dprintf("[INFO ]", __VA_ARGS__)
+#define LOCAL_INFO(...)  dprintf("[INFO ]", __VA_ARGS__)
 #else
-#define INFO(...)
+#define LOCAL_INFO(...)
 #endif
 
 #if ERROR_EN
-#define ERROR(...) dprintf("[ERROR]", __VA_ARGS__)
+#define LOCAL_ERROR(...) dprintf("[ERROR]", __VA_ARGS__)
 #else
-#define ERROR(...)
+#define LOCAL_ERROR(...)
 #endif
