@@ -282,6 +282,8 @@ static void do_init_path(void)
 					new_path->pre = last;
 				}
 
+				LOCAL_INFO("find path: %s\n", new_path->fpath);
+
 				start = i + 1;
 				if (var->fpath[i] == '\0')
 					break;
