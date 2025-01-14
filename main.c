@@ -9,7 +9,7 @@ const char *ct1 = "export PATH=/home:$PATH\n";
 const char *ct2 = "export PATH=/home:$PATH\n";
 const char *ct3 = "export PATH=/home:$PATH\n";
 const char *ct4 = "export PATH=/home:$PATH\n";
-const char *ct5 = "export mokha_PATH=/home:$PATH\n";
+const char *ct5 = "export mokha_PATH=/home:$PATH\n\0";
 
 int main() {
   init_ramfs();
