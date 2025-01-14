@@ -266,7 +266,7 @@ static void do_init_path(void)
 				assert(new_path->fpath != NULL);
 
 				memset(new_path->fpath, 0, end - start + 1);
-				strncpy(new_path->fpath, var->fpath + start, end - start + 1);
+				strncpy(new_path->fpath, var->fpath + start, end - start);
 
 				new_path->name = NULL;
 				new_path->pre = NULL;
