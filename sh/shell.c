@@ -198,31 +198,34 @@ static void do_init_vars(void)
 						if (new_var) {
 							free(new_var->fpath);
 							new_var->fpath = malloc(strlen(var_val) + 1);
+							assert(new_var->fpath);
+							strcpy(new_var->fpath, var_val);
 						} else {
 							new_var = malloc(sizeof(*new_var));
 							assert(new_var);
 							new_var->name  = malloc(strlen(varname) + 1);
 							new_var->fpath = malloc(strlen(var_val) + 1);
+
+							assert(new_var->name);
+							assert(new_var->fpath);
+
+							strcpy(new_var->name, varname);
+							strcpy(new_var->fpath, var_val);
+
+							new_var->next = NULL;
+							new_var->pre = NULL;
+
+							if (shell_vars == NULL)
+								shell_vars = new_var;
+							else {
+								for (last = shell_vars; last->next != NULL; last = last->next)
+									;
+
+								last->next = new_var;
+								new_var->pre = last;
+							}
 						}
 
-						assert(new_var->name);
-						assert(new_var->fpath);
-
-						strcpy(new_var->name, varname);
-						strcpy(new_var->fpath, var_val);
-
-						new_var->next = NULL;
-						new_var->pre = NULL;
-
-						if (shell_vars == NULL)
-							shell_vars = new_var;
-						else {
-							for (last = shell_vars; last->next != NULL; last = last->next)
-								;
-
-							last->next = new_var;
-							new_var->pre = last;
-						}
 
 						LOCAL_INFO("%p %p\n", last, last->next);
 						LOCAL_TRACE("set val(%s)=%s\n", new_var->name, new_var->fpath);
