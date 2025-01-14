@@ -3,27 +3,21 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <stdio.h>
 
-char s[105] = "Hello World!\n";
 int main() {
-    init_ramfs();
-    init_shell();
-    int fd1 = ropen("/test", O_CREAT | O_RDWR | O_APPEND);
-    rwrite(fd1, s, strlen(s));
-    rseek(fd1, 2, SEEK_SET);
-    rwrite(fd1, s, strlen(s));
+  init_ramfs();
+  init_shell();
+  
+  assert(sls("/home") == 1);
+  assert(scat("/home/ubuntu/.bashrc") == 1);
+  assert(scat("/") == 1);
+  assert(smkdir("/home") == 0);
+  assert(smkdir("/test/1") == 1);
+  assert(stouch("/home/1") == 0);
+  assert(smkdir("/home/1/1") == 1);
+  assert(stouch("/test/1") == 1);
+  assert(swhich("notexist") == 1);
 
-    scat("/test");
-
-    int fd2 = ropen("/test", O_TRUNC | O_RDWR);
-    
-    scat("/test");
-    rwrite(fd2, s, strlen(s));
-    
-    scat("/test");
-
-    close_shell();
-    close_ramfs();
-    return 0;
+  close_shell();
+  close_ramfs();
 }
