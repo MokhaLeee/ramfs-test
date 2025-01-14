@@ -1,26 +1,24 @@
 .PHONY: all run binary clean submit git gdb
 
 INC_PATH := include/
-TARGET := ramfs-shell
 
 all: compile
 
-compile: # git
-	@echo "[CC]	$(TARGET)"
-	@gcc -g  -Wall -Werror -std=c17 -O2 -I$(INC_PATH) main.c fs/ramfs.c sh/shell.c -o $(TARGET)
+compile: git
+	@gcc -g -std=c17 -O2 -I$(INC_PATH) main.c fs/ramfs.c sh/shell.c -o ramfs-shell
 
 run: compile
-	@$(TARGET)
+	@./ramfs-shell
 
 gdb: compile
-	gdb $(TARGET)
+	gdb ramfs-shell
 
 git:
 	@git add -A
 	@git commit --allow-empty -m "compile"
 
 clean:
-	@rm -f test $(TARGET)
+	@rm test
 
 submit:
 	$(eval TEMP := $(shell mktemp -d))
