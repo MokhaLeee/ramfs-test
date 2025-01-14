@@ -57,6 +57,25 @@ bool valid_fpath(const char *s)
 	return true;
 }
 
+void modify_fpath(char *fpath)
+{
+	int i, len = strlen(fpath);
+
+	for (i = 0; i < len; i++) {
+		if (fpath[i] == '/' && fpath[i + 1] == '/')
+			fpath[i] = '\0';
+	}
+
+	for (i = 0; i < len; i++) {
+		if (fpath[i] == '\0') {
+			int j;
+
+			for (j = i; j < len; j++)
+				fpath[j] = fpath[j + 1];
+		}
+	}
+}
+
 int get_token_depth(struct local_token *token)
 {
 	int ret = 0;

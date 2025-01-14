@@ -357,6 +357,7 @@ static int do_swhich(const char *cmd)
 
 		fnode = find(buf, FNODE);
 		if (fnode) {
+			modify_fpath(buf);
 			fprintf(stdout, "%s\n", buf);
 			return 0;
 		}

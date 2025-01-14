@@ -86,6 +86,7 @@ enum scan_fpath_ref {
 };
 
 int scan_fpath(const char *fpath);
+void modify_fpath(char *fpath);
 
 /**
  * internal
