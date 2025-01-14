@@ -251,6 +251,8 @@ node *next_node(const struct local_token *token, node *current, int type)
 
 		assert(child != NULL && child->name != NULL);
 
+		LOCAL_INFO("parent=%s, child=%s\n", current->name, child->name);
+
 		if (strcmp(child->name, token->tok_name) == 0) {
 			/**
 			 * check the type
@@ -300,8 +302,6 @@ int scan_fpath(const char *fpath)
 			if (fnode) {
 				ERR_RET(SCAN_FPATH_ISNOTDIR);
 			}
-
-			LOCAL_INFO("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->name);
 
 			/**
 			 * error check
