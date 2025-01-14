@@ -289,7 +289,7 @@ int scan_fpath(const char *fpath)
 	token = filename->head;
 
 	while (token) {
-		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		LOCAL_INFO("find token: current=%s, token=%s\n", parent->name, token->tok_name);
 		fnode = next_node(token, parent, token->next ? DNODE : ANY_NODE);
 
 		if (!fnode) {
