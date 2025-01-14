@@ -1,0 +1,1227 @@
+[TRACE](fs/ramfs.c:407: spawn_node) node=/, type=1
+[ERROR](fs/ramfs.c:540: ropen) -1
+[TRACE](fs/ramfs.c:202: get_local_filename) trace token generation: token=0, start=0, len=1
+[TRACE](fs/ramfs.c:549: ropen) find token: current=/, token=0
+[ERROR](fs/ramfs.c:615: ropen) -1
+[TRACE](fs/ramfs.c:202: get_local_filename) trace token generation: token=0, start=0, len=1
+[TRACE](fs/ramfs.c:549: ropen) find token: current=/, token=0
+[TRACE](fs/ramfs.c:85: get_token_depth) depth=0, token=0
+[TRACE](fs/ramfs.c:604: ropen) create node=0
+[TRACE](fs/ramfs.c:407: spawn_node) node=0, type=0
+[TRACE](fs/ramfs.c:202: get_local_filename) trace token generation: token=1, start=0, len=1
+[TRACE](fs/ramfs.c:549: ropen) find token: current=/, token=1
+[TRACE](fs/ramfs.c:254: next_node_ext) parent=/, child=0, type=0, target=0
+[TRACE](fs/ramfs.c:85: get_token_depth) depth=0, token=1
+[TRACE](fs/ramfs.c:604: ropen) create node=1
+[TRACE](fs/ramfs.c:407: spawn_node) node=1, type=0
+[TRACE](fs/ramfs.c:202: get_local_filename) trace token generation: token=2, start=0, len=1
+[TRACE](fs/ramfs.c:549: ropen) find token: current=/, token=2
+[TRACE](fs/ramfs.c:254: next_node_ext) parent=/, child=0, type=0, target=0
+[TRACE](fs/ramfs.c:254: next_node_ext) parent=/, child=1, type=0, target=0
+[TRACE](fs/ramfs.c:85: get_token_depth) depth=0, token=2
+[TRACE](fs/ramfs.c:604: ropen) create node=2
+[TRACE](fs/ramfs.c:407: spawn_node) node=2, type=0
+[TRACE](fs/ramfs.c:202: get_local_filename) trace token generation: token=3, start=0, len=1
+[TRACE](fs/ramfs.c:549: ropen) find token: current=/, token=3
+[TRACE](fs/ramfs.c:254: next_node_ext) parent=/, child=0, type=0, target=0
+[TRACE](fs/ramfs.c:254: next_node_ext) parent=/, child=1, type=0, target=0
+[TRACE](fs/ramfs.c:254: next_node_ext) parent=/, child=2, type=0, target=0
+[TRACE](fs/ramfs.c:85: get_token_depth) depth=0, token=3
+[TRACE](fs/ramfs.c:604: ropen) create node=3
+[TRACE](fs/ramfs.c:407: spawn_node) node=3, type=0
+[TRACE](fs/ramfs.c:731: rread) flags=0x0041
+[ERROR](fs/ramfs.c:739: rread) -9
+[TRACE](fs/ramfs.c:731: rread) flags=0x0041
+[ERROR](fs/ramfs.c:739: rread) -9
+[TRACE](fs/ramfs.c:731: rread) flags=0x0041
+[ERROR](fs/ramfs.c:739: rread) -9
+[TRACE](fs/ramfs.c:731: rread) flags=0x0041
+[ERROR](fs/ramfs.c:739: rread) -9
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=5
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=5
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=5
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=world
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=5
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=10
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=10
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=10
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=10
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=15
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=15
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=15
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=15
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=20
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=20
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=20
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=20
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=25
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=25
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=25
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=25
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=30
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=30
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=30
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=30
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=35
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=35
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=35
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=35
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=40
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=40
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohello1
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=40
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworld1
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=40
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿ1
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=45
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=45
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=45
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=45
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=50
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=50
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=50
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=50
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=55
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=55
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=55
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=55
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=60
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=60
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=60
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=60
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=65
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=65
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=65
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=65
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=70
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=70
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=70
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=70
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=75
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=75
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=75
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=75
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=80
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=80
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=80
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=80
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=85
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=85
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=85
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=85
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=90
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=90
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=90
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=90
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=95
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=95
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=95
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=95
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=100
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=100
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=100
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=100
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=105
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=105
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=105
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=105
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=110
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=110
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=110
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=110
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=115
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=115
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=115
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=115
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=120
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=120
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=120
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=120
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=125
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=125
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=125
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=125
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=130
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=130
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=130
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=130
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=135
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=135
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=135
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=135
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=140
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=140
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=140
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=140
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=145
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=145
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=145
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=145
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=150
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=150
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=150
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=150
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=155
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=155
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=155
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=155
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=160
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=160
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=160
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=160
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=165
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=165
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=165
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=165
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=170
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=170
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=170
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=170
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=175
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=175
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=175
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=175
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=180
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=180
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=180
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=180
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=185
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=185
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=185
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=185
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=190
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=190
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=190
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=190
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=195
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=195
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=195
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=195
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=200
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=200
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohelloÑ
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=200
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldÑ
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=200
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ!Á
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=205
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=205
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=205
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=205
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=210
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=210
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=210
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=210
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=215
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=215
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=215
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=215
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=220
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=220
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=220
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=220
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=225
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=225
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=225
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=225
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=230
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=230
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=230
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=230
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=235
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=235
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=235
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=235
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=240
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=240
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=240
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=240
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=245
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=245
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=245
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=245
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=250
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=250
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=250
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=250
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=255
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=255
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=255
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=255
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=260
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=260
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=260
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=260
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=265
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=265
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=265
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=265
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=270
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=270
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=270
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=270
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=275
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=275
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=275
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=275
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=280
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=280
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello!
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=280
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld!
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=280
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿá 
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=285
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=285
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=285
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=285
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=290
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=290
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=290
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=290
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=295
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=295
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=295
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=295
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=300
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=300
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=300
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=300
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=305
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=305
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=305
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=305
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=310
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=310
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=310
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=310
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=315
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=315
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=315
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=315
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=320
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=320
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=320
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=320
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=325
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=325
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=325
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=325
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=330
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=330
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=330
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=330
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=335
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=335
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=335
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=335
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=340
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=340
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=340
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=340
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=345
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=345
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=345
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=345
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=350
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=350
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=350
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=350
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=355
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=355
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=355
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=355
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=360
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=360
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohelloq
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=360
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldq
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=360
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ¡l
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=365
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=365
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=365
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=365
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=370
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=370
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=370
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=370
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=375
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=375
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=375
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=375
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=380
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=380
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=380
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=380
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=385
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=385
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=385
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=385
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=390
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=390
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=390
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=390
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=395
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=395
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=395
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=395
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=400
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=400
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=400
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=400
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=405
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=405
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=405
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=405
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=410
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=410
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=410
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=410
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=415
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=415
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=415
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=415
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=420
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=420
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=420
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=420
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=425
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=425
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=425
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=425
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=430
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=430
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=430
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=430
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=435
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=435
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=435
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=435
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=440
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=440
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohelloÁ
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=440
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldÁ
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=440
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿá+
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=445
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=445
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=445
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=445
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=450
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=450
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=450
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=450
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=455
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=455
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=455
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=455
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=460
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=460
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=460
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=460
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=465
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=465
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=465
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=465
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=470
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=470
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=470
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=470
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=475
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=475
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=475
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=475
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=480
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=480
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=480
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=480
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=485
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=485
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=485
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=485
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=490
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=490
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=490
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=490
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿşÿ
+[TRACE](fs/ramfs.c:708: rwrite) file=0, offset=495
+[TRACE](fs/ramfs.c:709: rwrite) src=
+[TRACE](fs/ramfs.c:710: rwrite) dst=
+[TRACE](fs/ramfs.c:708: rwrite) file=1, offset=495
+[TRACE](fs/ramfs.c:709: rwrite) src=hello
+[TRACE](fs/ramfs.c:710: rwrite) dst=hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
+[TRACE](fs/ramfs.c:708: rwrite) file=2, offset=495
+[TRACE](fs/ramfs.c:709: rwrite) src=world
+[TRACE](fs/ramfs.c:710: rwrite) dst=worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld
+[TRACE](fs/ramfs.c:708: rwrite) file=3, offset=495
+[TRACE](fs/ramfs.c:709: rwrite) src=şÿ
+[TRACE](fs/ramfs.c:710: rwrite) dst=şÿşÿşÿşÿ
