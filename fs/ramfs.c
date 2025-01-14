@@ -251,7 +251,7 @@ node *next_node(const struct local_token *token, node *current, int type)
 
 		assert(child != NULL && child->name != NULL);
 
-		LOCAL_INFO("parent=%s, child=%s\n", current->name, child->name);
+		LOCAL_INFO("parent=%s, child=%s, type=%d\n", current->name, child->name, child->type);
 
 		if (strcmp(child->name, token->tok_name) == 0) {
 			/**
