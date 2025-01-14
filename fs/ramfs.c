@@ -217,7 +217,7 @@ err_ret:
 /**
  * node ops
  */
-node *next_node(const struct local_token *token, node *current, int type)
+node *next_node(const struct local_token *token, node *current, int type, bool force)
 {
 	int i;
 	node *next_node = NULL;
@@ -268,6 +268,10 @@ node *next_node(const struct local_token *token, node *current, int type)
 	return next_node;
 }
 
+node *next_node(const struct local_token *token, node *current, int type)
+{
+	return next_node_ext(token, current, type, false);
+}
 
 int scan_fpath(const char *fpath)
 {
