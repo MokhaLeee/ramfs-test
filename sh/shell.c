@@ -127,6 +127,8 @@ static void do_init_vars(void)
 		return;
 	}
 
+	shell_vars = NULL;
+
 	newline_offset = 0;
 	while (1) {
 		ssize_t i, bytes_read;
