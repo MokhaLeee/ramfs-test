@@ -72,7 +72,7 @@ struct shell_path *get_value_from_var(const char *var_name)
 {
 	struct shell_path *var = shell_vars;
 
-	while (var != NULL && var->next != shell_vars) {
+	while (var != NUL) {
 		assert(var->name != NULL);
 
 		LOCAL_INFO("this var: $%s=%s\n", var->name, var->fpath);
