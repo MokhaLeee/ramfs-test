@@ -80,7 +80,7 @@ struct shell_path *get_value_from_var(const char *var_name)
 	while (var != NULL) {
 		assert(var->name != NULL);
 
-		LOCAL_TRACE("this var: %p %p, $%s=%s\n", var, var->next, var->name, var->fpath);
+		LOCAL_INFO("this var: %p %p, $%s=%s\n", var, var->next, var->name, var->fpath);
 
 		if (strcmp(var_name, var->name) == 0) {
 			LOCAL_TRACE("find var: $%s=%s\n", var->name, var->fpath);
@@ -605,7 +605,7 @@ int secho(const char *content)
 		}
 
 		if (ch == '$') {
-			LOCAL_INFO("parse %s\n", content + i + 1);
+			LOCAL_INFO("parse: %s\n", content + i + 1);
 
 			struct shell_path *var = get_value_from_var(content + i + 1);
 
