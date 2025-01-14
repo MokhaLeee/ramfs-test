@@ -196,8 +196,8 @@ static void do_init_vars(void)
 
 						new_var = get_value_from_var(varname);
 						if (new_var) {
-							free(new_var->fpath);
 							LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
+							free(new_var->fpath);
 							new_var->fpath = malloc(strlen(var_val) + 1);
 							assert(new_var->fpath);
 							strcpy(new_var->fpath, var_val);
