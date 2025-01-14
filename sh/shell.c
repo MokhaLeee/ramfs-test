@@ -100,7 +100,7 @@ static void do_init_vars(void)
 			start = end = prefix_len;
 			len = strlen(buffer) + 1;
 
-			name_start = name_end = val_start = val_end = 0;
+			name_start = name_end = val_start = val_end = prefix_len;
 
 			for (j = start; j < len; j++) {
 				if (buffer[j] == '\0') {
@@ -121,7 +121,7 @@ static void do_init_vars(void)
 				}
 
 				if (buffer[j] == '=') {
-					if (name_end == 0 && val_start == 0 && val_end == 0) {
+					if (name_end == prefix_len && val_start == prefix_len && val_end == prefix_len) {
 						// valid
 						name_end = j;
 						val_start = j + 1;
