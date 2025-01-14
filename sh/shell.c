@@ -71,9 +71,9 @@ void free_var(struct shell_path *var)
 struct shell_path *get_value_from_var(const char *var_name)
 {
 	struct shell_path *var;
-	LOCAL_INFO("failed to find var: %s\n", var_name);
+
 	for (var = shell_vars; var != NULL; var++) {
-		assert(var->fpath != NULL);
+		assert(var->name != NULL);
 
 		if (strcmp(var_name, var->name) == 0) {
 			LOCAL_INFO("find var: $%s=%s\n", var->name, var->fpath);
