@@ -460,7 +460,7 @@ int smkdir(const char *pathname)
 	if (ret < 0) {
 		int scan_ret = scan_fpath(pathname);
 
-		LOCAL_INFO("scan_ret=%d on fpath=%s\n", scan_ret, pathname);
+		LOCAL_ERROR("scan_ret=%d on fpath=%s\n", scan_ret, pathname);
 
 		switch (scan_ret) {
 		case SCAN_FPATH_PASS_DNODE:
