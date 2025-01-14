@@ -54,10 +54,10 @@ void free_var(struct shell_path *var)
 		return;
 
 	if (var->pre)
-		var->pre = var->next;
+		var->pre->next = var->next;
 
 	if (var->next)
-		var->next = var->pre;
+		var->next->pre = var->pre;
 
 	if (var->fpath)
 		free(var->fpath);
@@ -189,11 +189,9 @@ static void do_init_vars(void)
 
 						LOCAL_INFO("get val(%s)=%s\n", varname, var_val);
 
-#if 0
 						new_var = get_value_from_var(varname);
 						if (new_var)
 							free_var(new_var);
-#endif
 
 						new_var = malloc(sizeof(*new_var));
 						assert(new_var);
