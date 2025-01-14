@@ -295,8 +295,12 @@ int scan_fpath(const char *fpath)
 		if (!fnode) {
 			LOCAL_INFO("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->name);
 
-			if (next_node(token, parent, FNODE))
+			fnode = next_node(token, parent, FNODE);
+
+			if (fnode) {
+				printf("111");
 				ERR_RET(SCAN_FPATH_ISNOTDIR);
+			}
 
 			/**
 			 * error check
