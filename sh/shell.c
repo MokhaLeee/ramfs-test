@@ -173,7 +173,7 @@ static void do_init_vars(void)
 			for (j = start; j < len; j++) {
 				if (buffer[j] == '\0') {
 					if (name_end > 0 && val_start > name_end) {
-						struct shell_path *new_var;
+						struct shell_path *new_var, *last;
 
 						// valid
 						val_end = j;
@@ -200,12 +200,17 @@ static void do_init_vars(void)
 						strcpy(new_var->name, varname);
 						strcpy(new_var->fpath, var_val);
 
-						if (shell_vars)
-							shell_vars->pre = new_var;
+						new_var->next = new_var->pre = NULL;
 
-						new_var->next = shell_vars;
-						new_var->pre = NULL;
-						shell_vars = new_var;
+						if (!shell_vars)
+							shell_vars = new_var;
+						else {
+							for (last = shell_vars; last->next != NULL; last = last->next)
+								;
+
+							last->next = new_var;
+							new_var->pre = last;
+						}
 
 						LOCAL_INFO("set val(%s)=%s\n", new_var->name, new_var->fpath);
 					}
@@ -278,7 +283,7 @@ static void do_init_path(void)
 			 * nice shoot!
 			 */
 			size_t j, start, end, len;
-			struct shell_path *new_path;
+			struct shell_path *new_path, *last;
 
 			start = end = prefix_len;
 			len = strlen(buffer) + 1;
@@ -301,13 +306,19 @@ static void do_init_path(void)
 					memset(new_path->fpath, 0, end - start + 1);
 					strncpy(new_path->fpath, buffer + start, end - start + 1);
 
-					if (shell_path_head)
-						shell_path_head->pre = new_path;
-
 					new_path->name = NULL;
-					new_path->next = shell_path_head;
-					new_path->pre = NULL;
-					shell_path_head = new_path;
+					new_path->pre = new_path->next = NULL;
+
+					if (!shell_path_head)
+						shell_path_head = new_path;
+					else {
+						for (last = shell_path_head; last->next != NULL; last = last->next)
+							;
+
+						last->next = new_path;
+						new_path->pre = last;
+					}
+
 
 					start = j + 1;
 					LOCAL_TRACE("get path: %s\n", new_path->fpath);
