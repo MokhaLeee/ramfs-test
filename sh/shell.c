@@ -471,12 +471,12 @@ int smkdir(const char *pathname)
 			break;
 
 		case SCAN_FPATH_NODIR:
-		case SCAN_FPATH_NOTARGET:
 			fprintf(stdout, "mkdir: cannot create directory '%s': No such file or directory\n", pathname);
 			break;
 
 		case SCAN_FPATH_PASS_FNODE:
 		case SCAN_FPATH_ISNOTDIR:
+		case SCAN_FPATH_NOTARGET:
 		default:
 			fprintf(stdout, "mkdir: cannot create directory '%s': Not a directory\n", pathname);
 			break;
