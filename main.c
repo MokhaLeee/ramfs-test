@@ -41,6 +41,8 @@ int main() {
   char buf2[100] = {0};
   assert(rseek(fd, 0, SEEK_SET) == 0);
   assert(rread(fd, buf2, 100) == 12);
+
+  printf("%s\n", buf2);
   assert(!memcmp(buf2, "hello\0\0world", 12));
 
   init_shell();
