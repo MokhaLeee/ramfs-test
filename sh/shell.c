@@ -363,10 +363,10 @@ int sls(const char *pathname)
 		ERR_RET(1);
 	}
 
-	LOCAL_TRACE("find node=%s\n", fnode->name);
+	LOCAL_TRACE("find node=%s\n", fnode->local_name);
 
 	if (fnode->type == FNODE) {
-		fprintf(stdout, "%s\n", fnode->name);
+		fprintf(stdout, "%s\n", fnode->local_name);
 	} else {
 		int i;
 
@@ -377,7 +377,7 @@ int sls(const char *pathname)
 				if (i != 0)
 					fprintf(stdout, " ");
 
-				fprintf(stdout, "%s", fnode->dirents[i]->name);
+				fprintf(stdout, "%s", fnode->dirents[i]->local_name);
 			}
 		}
 
