@@ -28,7 +28,9 @@ int main() {
   assert(!strcmp(buf, content));
   assert(rclose(fd) == 0);
 
+  assert((fd = ropen("/home///ubuntu//.bashrc", O_WRONLY | O_APPEND)) >= 0);
   assert(rwrite(fd, ct, strlen(ct)) == strlen(ct));
+  assert(rclose(fd) == 0);
 
   assert(scat("/home/ubuntu/.bashrc") == 0);
 
