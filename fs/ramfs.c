@@ -117,8 +117,10 @@ void free_local_filename(struct local_filename *filename)
 	while (token) {
 		struct local_token *next = token->next;
 
+#if 0
 		if (token->tok_name)
 			free(token->tok_name);
+#endif
 
 		free(token);
 		token = next;
@@ -471,6 +473,17 @@ static void remove_node(node *fnode)
 
 		parent->nrde--;
 	}
+
+	/**
+	 * free node
+	 */
+	if (fnode->content)
+		free(fnode->content);
+
+	if (fnode->dirents)
+		free(fnode->dirents);
+
+	free(fnode);
 }
 
 static void node_realloc_content(node *fnode, int max_size)
