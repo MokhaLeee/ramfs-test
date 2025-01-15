@@ -4,8 +4,16 @@ INC_PATH := include/
 
 all: compile
 
+flags :=
+flags += -DTRACE_EN
+flags += -DINFO_EN
+flags += -DERROR_EN
+
+dflags := $(flags)
+dext_src := test1.c test2.c test3.c test4.c test5.c
+
 compile: # git
-	@gcc -g -std=c17 -O2 -I$(INC_PATH) main.c fs/ramfs.c sh/shell.c -o ramfs-shell
+	@gcc -g -std=c17 -O2 -I$(INC_PATH) $(dflags) $(dext_src) main.c fs/ramfs.c sh/shell.c -o ramfs-shell
 
 run: compile
 	@./ramfs-shell

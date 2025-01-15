@@ -255,7 +255,7 @@ node *next_node_ext(const struct local_token *token, node *current, int type, bo
 
 		assert(child != NULL && child->local_name != NULL);
 
-		LOCAL_TRACE("parent=%s, child=%s, type=%d, target=%d\n", current->local_name, child->name, child->type, type);
+		LOCAL_TRACE("parent=%s, child=%s, type=%d, target=%d\n", current->local_name, child->local_name, child->type, type);
 
 		if (strcmp(child->local_name, token->tok_name) == 0) {
 			/**
@@ -305,11 +305,11 @@ int scan_fpath(const char *fpath)
 	token = filename->head;
 
 	while (token) {
-		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->local_name, token->tok_name);
 		fnode = next_node(token, parent, token->next ? DNODE : ANY_NODE);
 
 		if (!fnode) {
-			LOCAL_TRACE("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->name);
+			LOCAL_TRACE("failed to find fnode: %s, parent=%s\n", token->tok_name, parent->local_name);
 
 			fnode = next_node_direct(token, parent, FNODE);
 
@@ -350,7 +350,7 @@ static node *find_node(const struct local_token *token, node *current, int type)
 
 	fnode = current;
 	while (token) {
-		LOCAL_TRACE("current=%s, child=%s\n", fnode->name, token->tok_name);
+		LOCAL_TRACE("current=%s, child=%s\n", fnode->local_name, token->tok_name);
 		fnode = next_node(token, fnode, type);
 		token = token->next;
 
@@ -565,7 +565,7 @@ int ropen(const char *fpath, int flags)
 	token_bak = token = filename->head;
 
 	while (token) {
-		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->name, token->tok_name);
+		LOCAL_TRACE("find token: current=%s, token=%s\n", parent->local_name, token->tok_name);
 
 		parent = fnode;
 		fnode = next_node(token, parent, token->next ? DNODE : FNODE);
@@ -581,7 +581,7 @@ int ropen(const char *fpath, int flags)
 		parent = get_root();
 
 	if (fnode) {
-		LOCAL_TRACE("find node=%s, type=%d\n", fnode->name, fnode->type);
+		LOCAL_TRACE("find node=%s, type=%d\n", fnode->local_name, fnode->type);
 	}
 
 	if (fnode && fnode->type == FNODE && flags & O_CREAT && FLAG_GET_RD(flags) != O_RDONLY) {
@@ -592,13 +592,13 @@ int ropen(const char *fpath, int flags)
 	 * ?
 	 */
 	if (fnode && fnode->type == DNODE) {
-		LOCAL_TRACE("find a DNODE with same name: %s\n", fnode->name);
+		LOCAL_TRACE("find a DNODE with same name: %s\n", fnode->local_name);
 		token = token_bak;
 		fnode = NULL;
 	}
 
 	if (fnode && fnode->type == FNODE && (flags & O_TRUNC) && (flags & (O_WRONLY | O_RDWR))) {
-		LOCAL_TRACE("trunc node=%s\n", fnode->name);
+		LOCAL_TRACE("trunc node=%s\n", fnode->local_name);
 		remove_node(fnode);
 		token = token_bak;
 		fnode = NULL;
@@ -715,6 +715,9 @@ ssize_t rwrite(int fd, const void *buf, size_t count)
 	if (file->f->type != FNODE)
 		ERR_RET(-EISDIR);
 
+	if (file->offset < 0)
+		ERR_RET(-3);
+
 	max_size = file->offset + count;
 	if (max_size > file->f->size)
 		node_realloc_content(file->f, max_size);
@@ -724,7 +727,7 @@ ssize_t rwrite(int fd, const void *buf, size_t count)
 	file->offset += count;
 	ret = count;
 
-	LOCAL_TRACE("file=%s, offset=%d\n", file->f->name, file->offset);
+	LOCAL_TRACE("file=%s, offset=%d\n", file->f->local_name, file->offset);
 	LOCAL_TRACE("src=%s\n", (const char *)buf);
 	LOCAL_TRACE("dst=%s\n", (char *)file->f->content);
 
@@ -764,6 +767,9 @@ ssize_t rread(int fd, void *buf, size_t count)
 	if (file->f->type != FNODE)
 		ERR_RET(-EISDIR);
 
+	if (file->offset < 0 || file->offset >= file->f->size)
+		ERR_RET(-3);
+
 	if ((file->offset + count) > file->f->size)
 		count = file->f->size - file->offset;
 
@@ -777,7 +783,7 @@ ssize_t rread(int fd, void *buf, size_t count)
 	file->offset += count;
 	ret = count;
 
-	// LOCAL_TRACE("file=%s, len=%d, buf=%s\n", file->f->name, ret, (char *)buf);
+	// LOCAL_TRACE("file=%s, len=%d, buf=%s\n", file->f->local_name, ret, (char *)buf);
 
 err_ret:
 	return ret >= 0 ? ret : -1;
@@ -812,17 +818,19 @@ off_t rseek(int fd, off_t offset, int whence)
 	if (new_offset < 0)
 		ERR_RET(-2);
 
-	if (new_offset >= file->f->size && FLAG_GET_RD(file->flags) == O_RDONLY) {
+#if 0
+	if (new_offset > file->f->size && FLAG_GET_RD(file->flags) == O_RDONLY) {
 		LOCAL_ERROR("file overflowed: %s, new=%ld, size=%d\n",
 				file->f->local_name, new_offset, file->f->size);
 		ERR_RET(-3);
 	}
 
-	LOCAL_TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
-			file->f->name, offset, new_offset, whence, file->f->size);
-
 	if (new_offset > file->f->size)
 		node_realloc_content(file->f, new_offset);
+#endif
+
+	LOCAL_TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
+			file->f->local_name, offset, new_offset, whence, file->f->size);
 
 	file->offset = new_offset;
 	ret = file->offset;
@@ -852,7 +860,7 @@ int rmkdir(const char *fpath)
 	token = filename->head;
 
 	while (token) {
-		LOCAL_TRACE("current=%s, child=%s\n", parent->name, token->tok_name);
+		LOCAL_TRACE("current=%s, child=%s\n", parent->local_name, token->tok_name);
 		fnode = next_node(token, parent, DNODE);
 
 		if (!fnode)
@@ -1015,7 +1023,7 @@ void init_ramfs()
 
 void close_ramfs()
 {
-#if ERROR_EN
+#ifdef ERROR_EN
 	dump_ramfs();
 #endif
 
