@@ -810,7 +810,10 @@ off_t rseek(int fd, off_t offset, int whence)
 	}
 
 	if (new_offset < 0)
-		new_offset = 0;
+		ERR_RET(-2);
+
+	if (new_offset > file->f->size)
+		ERR_RET(-3);
 
 	LOCAL_TRACE("file=%s, offset=%ld, new_offset=%ld, whence=%d, file size=%d\n",
 			file->f->name, offset, new_offset, whence, file->f->size);
