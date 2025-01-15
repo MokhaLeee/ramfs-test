@@ -961,6 +961,39 @@ err_ret:
 	return ret >= 0 ? ret : -1;
 }
 
+static void print_node(node *fnode, int depth)
+{
+	int i;
+
+	for (i = 0; i < depth; i++)
+		printf("\t");
+
+	printf("%s\n", fnode->name);
+}
+
+static void dump_node(node *fnode, int depth)
+{
+	int i;
+
+	if (!fnode)
+		return;
+
+	print_node(fnode, depth);
+	if (fnode->type == FNODE || fnode->nrde == 0)
+		return;
+
+	assert(fnode->dirents);
+
+	for (i = 0; i < fnode->nrde; i++) {
+		dump_node(fnode->dirents[i], depth + 1);
+	}
+}
+
+void dump_ramfs(void)
+{
+	dump_node(root, 0);
+}
+
 void init_ramfs()
 {
 	working_dir = root = create_root();
@@ -971,6 +1004,7 @@ void init_ramfs()
 
 void close_ramfs()
 {
+	dump_ramfs();
 	remove_node(root);
 
 	root = NULL;
