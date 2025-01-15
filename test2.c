@@ -7,6 +7,7 @@
 
 static const char *content = "export PATH=/usr/bin/\n";
 static const char *ct = "export PATH=/home:$PATH";
+
 int test2() {
   init_ramfs();
 

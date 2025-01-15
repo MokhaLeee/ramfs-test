@@ -749,7 +749,7 @@ ssize_t rread(int fd, void *buf, size_t count)
 	if (file->used != true)
 		ERR_RET(-EBADF);
 
-	// LOCAL_TRACE("flags=0x%04X\n", file->flags);
+	LOCAL_TRACE("flags=0x%04X, count=%ld\n", file->flags, count);
 
 	switch (FLAG_GET_RD(file->flags)) {
 	case O_RDONLY:
@@ -769,7 +769,10 @@ ssize_t rread(int fd, void *buf, size_t count)
 	if (count == 0)
 		return 0;
 
-	if (file->offset < 0 || file->offset >= file->f->size)
+	if (file->offset < 0)
+		return -1;
+
+	if (file->offset >= file->f->size)
 		ERR_RET(0);
 
 	if ((file->offset + count) > file->f->size)
@@ -785,7 +788,7 @@ ssize_t rread(int fd, void *buf, size_t count)
 	file->offset += count;
 	ret = count;
 
-	// LOCAL_TRACE("file=%s, len=%d, buf=%s\n", file->f->local_name, ret, (char *)buf);
+	LOCAL_TRACE("file=%s, len=%d, buf=%s\n", file->f->local_name, ret, (char *)buf);
 
 err_ret:
 	return ret >= 0 ? ret : -1;

@@ -301,9 +301,9 @@ static void do_init_path(void)
 						new_path->pre = last;
 					}
 
-					LOCAL_INFO("find path: %s\n", new_path->fpath);
+					LOCAL_TRACE("find path: %s\n", new_path->fpath);
 				} else {
-					LOCAL_INFO("invalid path: %s\n", path_buf);
+					LOCAL_TRACE("invalid path: %s\n", path_buf);
 				}
 
 				if (termator)

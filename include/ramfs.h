@@ -78,6 +78,7 @@ extern node *working_dir;
 
 node *get_root(void);
 node *get_working_dir(void);
+void dump_ramfs(void);
 
 enum scan_fpath_ref {
 	SCAN_FPATH_PASS_FNODE,
