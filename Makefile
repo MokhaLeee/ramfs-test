@@ -4,7 +4,7 @@ INC_PATH := include/
 
 all: compile
 
-compile: git
+compile: # git
 	@gcc -g -std=c17 -O2 -I$(INC_PATH) main.c fs/ramfs.c sh/shell.c -o ramfs-shell
 
 run: compile
