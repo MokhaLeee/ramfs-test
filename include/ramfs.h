@@ -93,7 +93,7 @@ void modify_fpath(char *fpath);
  * internal
  */
 
-#define TRACE_EN 1
+#define TRACE_EN 0
 #define INFO_EN  1
 #define ERROR_EN 1
 
