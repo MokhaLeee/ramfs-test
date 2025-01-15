@@ -97,7 +97,7 @@ void modify_fpath(char *fpath);
 #define INFO_EN  1
 #define ERROR_EN 1
 
-#define dprintf(prefix, format, ...) printf("\033[35m"prefix"(%s:%d: %s) ""\033[0m"format, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
+#define dprintf(prefix, format, ...) printf("\033[35m"prefix"(%s:%d: %s) \033[0m"format, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
 
 #if TRACE_EN
 #define LOCAL_TRACE(...) dprintf("[TRACE]", __VA_ARGS__)
