@@ -966,7 +966,7 @@ static void print_node(node *fnode, int depth)
 	int i;
 
 	for (i = 0; i < depth; i++)
-		printf("\t");
+		printf("----");
 
 	printf("%s\n", fnode->name);
 }
@@ -991,6 +991,7 @@ static void dump_node(node *fnode, int depth)
 
 void dump_ramfs(void)
 {
+	printf("ramfs tree\n");
 	dump_node(root, 0);
 }
 
