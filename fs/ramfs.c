@@ -813,7 +813,7 @@ off_t rseek(int fd, off_t offset, int whence)
 		ERR_RET(-2);
 
 	if (new_offset > file->f->size) {
-		LOCAL_ERROR("file overflowed: %s, new=%d, size=%d\n",
+		LOCAL_ERROR("file overflowed: %s, new=%ld, size=%d\n",
 				file->f->local_name, new_offset, file->f->size);
 		ERR_RET(-3);
 	}
