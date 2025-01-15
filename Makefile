@@ -9,7 +9,7 @@ flags += -DTRACE_EN
 flags += -DINFO_EN
 flags += -DERROR_EN
 
-dflags := $(flags)
+dflags := # $(flags)
 dext_src := test1.c test2.c test3.c test4.c test5.c
 
 compile: # git

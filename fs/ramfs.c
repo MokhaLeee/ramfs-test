@@ -539,8 +539,7 @@ int ropen(const char *fpath, int flags)
 	 */
 	switch (FLAG_GET_RD(flags)) {
 	case O_RDONLY:
-		if (flags & O_TRUNC)
-			flags &= ~O_TRUNC;
+		flags &= ~O_TRUNC;
 		break;
 
 	case O_WRONLY:
@@ -767,6 +766,9 @@ ssize_t rread(int fd, void *buf, size_t count)
 	if (file->f->type != FNODE)
 		ERR_RET(-EISDIR);
 
+	if (count == 0)
+		return 0;
+
 	if (file->offset < 0 || file->offset >= file->f->size)
 		ERR_RET(0);
 
@@ -793,7 +795,12 @@ off_t rseek(int fd, off_t offset, int whence)
 {
 	int ret = 0;
 	off_t new_offset;
-	FD *file = &fdesc[fd];
+	FD *file;
+
+	if (fd < 0 || fd > NRFD)
+		ERR_RET(-EBADF);
+
+	file = &fdesc[fd];
 
 	if (file->used != true)
 		ERR_RET(-EINVAL);

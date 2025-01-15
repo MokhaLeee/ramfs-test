@@ -337,6 +337,11 @@ int sls(const char *pathname)
 	if (!pathname || !*pathname)
 		pathname = "/\0";
 
+	if (!valid_root_fpath(pathname)) {
+		// fprintf(stdout, "No such file or directory\n");
+		ERR_RET(1);
+	}
+
 	fnode = find(pathname, ANY_NODE);
 	if (!fnode) {
 		int scan_ret = scan_fpath(pathname);
@@ -453,6 +458,11 @@ int smkdir(const char *pathname)
 	int ret;
 
 	print("mkdir %s\n", pathname);
+
+	if (!valid_root_fpath(pathname)) {
+		// fprintf(stdout, "No such file or directory\n");
+		ERR_RET(1);
+	}
 
 	ret = rmkdir(pathname);
 
