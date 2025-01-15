@@ -768,7 +768,7 @@ ssize_t rread(int fd, void *buf, size_t count)
 		ERR_RET(-EISDIR);
 
 	if (file->offset < 0 || file->offset >= file->f->size)
-		ERR_RET(-3);
+		ERR_RET(0);
 
 	if ((file->offset + count) > file->f->size)
 		count = file->f->size - file->offset;

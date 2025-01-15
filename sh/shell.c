@@ -599,17 +599,46 @@ void init_shell(void)
 
 void close_shell(void)
 {
-	if (shell_vars) {
-		while (shell_vars->next)
-			free_var(shell_vars->next, shell_vars);
+	struct shell_path *last, *pre;
 
-		free(shell_vars);
+	if (shell_vars) {
+		for (last = shell_vars; last->next != NULL; last = last->next)
+			;
+
+		pre = last;
+		while (pre != NULL) {
+			last = pre;
+			pre = pre->pre;
+
+			if (last->name)
+				free(last->name);
+
+			if (last->fpath)
+				free(last->fpath);
+
+			free(last);
+		}
 	}
 
 	if (shell_path_head) {
-		while (shell_path_head->next)
-			free_var(shell_path_head->next, shell_path_head);
+		for (last = shell_path_head; last->next != NULL; last = last->next)
+			;
 
-		free(shell_path_head);
+		pre = last;
+		while (pre != NULL) {
+			last = pre;
+			pre = pre->pre;
+
+			if (last->name)
+				free(last->name);
+
+			if (last->fpath)
+				free(last->fpath);
+
+			free(last);
+		}
 	}
+
+	shell_vars = NULL;
+	shell_path_head = NULL;
 }
