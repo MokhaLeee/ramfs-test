@@ -968,7 +968,7 @@ static void print_node(node *fnode, int depth)
 	for (i = 0; i < depth; i++)
 		printf("----");
 
-	printf("%s (%c)\n", fnode->name, fnode->type == FNODE ? 'F' : 'D');
+	printf("[%c] %s\n", fnode->type == FNODE ? 'F' : 'D', fnode->name);
 }
 
 static void dump_node(node *fnode, int depth)
