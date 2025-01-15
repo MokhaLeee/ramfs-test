@@ -991,7 +991,7 @@ static void dump_node(node *fnode, int depth)
 
 void dump_ramfs(void)
 {
-	printf("ramfs tree\n");
+	printf("dump ramfs tree\n");
 	dump_node(root, 0);
 }
 
@@ -1005,7 +1005,10 @@ void init_ramfs()
 
 void close_ramfs()
 {
+#if ERROR_EN
 	dump_ramfs();
+#endif
+
 	remove_node(root);
 
 	root = NULL;
