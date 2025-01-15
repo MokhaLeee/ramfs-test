@@ -6,6 +6,7 @@
 
 const char *content = "export PATH=/usr/bin/\n";
 const char *ct = "export PATH=/home:$PATH";
+
 int main() {
   int fd;
   char buf[BUFSIZ] = {0};
