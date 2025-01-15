@@ -19,13 +19,15 @@
 
 #define NRDE_GRP 40
 
+#define FNAME_MAX_LEN 32
+
 typedef struct node {
 	enum { FNODE, DNODE, ANY_NODE } type;
 	struct node *parent;
 	struct node **dirents; // if DTYPE
 	void *content;
 	int nrde, nrde_max;
-	char local_name[40];
+	char local_name[FNAME_MAX_LEN + 1];
 	int size;
 } node;
 
@@ -42,7 +44,7 @@ typedef long off_t;
 
 struct local_token {
 	struct local_token *pre, *next;
-	char *tok_name;
+	char tok_name[FNAME_MAX_LEN + 1];
 };
 
 struct local_filename {

@@ -11,8 +11,6 @@ node *working_dir = NULL;
 #define NRFD 4096
 FD fdesc[NRFD];
 
-#define FNAME_MAX_LEN 32
-
 #define ERR_RET(err_no) {              \
 	ret = (err_no);                    \
 	if ((err_no) < 0)                  \
@@ -165,8 +163,6 @@ struct local_filename *get_local_filename(const char *fpath)
 		// root
 		new_token = malloc(sizeof(*new_token));
 		assert(new_token != NULL);
-		new_token->tok_name = malloc(2);
-		assert(new_token->tok_name != NULL);
 
 		new_token->tok_name[0] = '/';
 		new_token->tok_name[1] = '\0';
@@ -191,9 +187,6 @@ struct local_filename *get_local_filename(const char *fpath)
 
 		new_token = malloc(sizeof(*new_token));
 		assert(new_token != NULL);
-
-		new_token->tok_name = malloc(len + 1);
-		assert(new_token->tok_name != NULL);
 
 		memcpy(new_token->tok_name, fpath + start, len);
 		new_token->tok_name[len] = '\0';
