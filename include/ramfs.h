@@ -51,6 +51,7 @@ struct local_filename {
 };
 
 bool valid_fpath(const char *s);
+bool valid_root_fpath(const char *s);
 bool token_is_leaf(struct local_token *token);
 void free_local_filename(struct local_filename *filename);
 struct local_filename *get_local_filename(const char *fpath);

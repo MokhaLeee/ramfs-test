@@ -395,7 +395,7 @@ int scat(const char *pathname)
 
 	print("cat %s\n", pathname);
 
-	if (!valid_fpath(pathname)) {
+	if (!valid_root_fpath(pathname)) {
 		fprintf(stdout, "No such file or directory\n");
 		ERR_RET(1);
 	}
@@ -497,7 +497,7 @@ int stouch(const char *pathname)
 
 	print("touch %s\n", pathname);
 
-	if (!valid_fpath(pathname)) {
+	if (!valid_root_fpath(pathname)) {
 		fprintf(stdout, "No such file or directory\n");
 		ERR_RET(1);
 	}

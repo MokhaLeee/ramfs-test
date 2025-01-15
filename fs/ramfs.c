@@ -57,6 +57,14 @@ bool valid_fpath(const char *s)
 	return true;
 }
 
+bool valid_root_fpath(const char *s)
+{
+	if (!s || *s != '/')
+		return false;
+
+	return valid_fpath(s);
+}
+
 void modify_fpath(char *fpath)
 {
 	int i, len = strlen(fpath);
