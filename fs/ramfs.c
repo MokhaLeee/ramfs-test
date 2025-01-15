@@ -258,11 +258,11 @@ node *next_node_ext(const struct local_token *token, node *current, int type, bo
 	for (i = 0; i < current->nrde; i++) {
 		node *child = current->dirents[i];
 
-		assert(child != NULL && child->name != NULL);
+		assert(child != NULL && child->local_name != NULL);
 
-		LOCAL_TRACE("parent=%s, child=%s, type=%d, target=%d\n", current->name, child->name, child->type, type);
+		LOCAL_TRACE("parent=%s, child=%s, type=%d, target=%d\n", current->local_name, child->name, child->type, type);
 
-		if (strcmp(child->name, token->tok_name) == 0) {
+		if (strcmp(child->local_name, token->tok_name) == 0) {
 			/**
 			 * check the type
 			 */
@@ -379,9 +379,7 @@ static node *spawn_node(const struct local_token *token, node *parent, int type)
 	fnode->dirents = NULL;
 	fnode->content = NULL;
 	fnode->nrde = fnode->nrde_max = 0;
-	fnode->name = malloc(strlen(token->tok_name) + 1);
-	assert(fnode->name != NULL);
-	strcpy(fnode->name, token->tok_name);
+	strcpy(fnode->local_name, token->tok_name);
 	fnode->size = 0;
 
 	if (parent) {
@@ -413,7 +411,7 @@ static node *spawn_node(const struct local_token *token, node *parent, int type)
 		}
 	}
 
-	LOCAL_TRACE("node=%s, type=%d\n", fnode->name, fnode->type);
+	LOCAL_TRACE("node=%s, type=%d\n", fnode->local_name, fnode->type);
 	return fnode;
 }
 
@@ -428,7 +426,7 @@ static node *create_root(void)
 static node *create_node(const struct local_token *token, node *parent, int type)
 {
 	if (!token || !token->tok_name) {
-		LOCAL_ERROR("invalid token, parent=%s!\n", parent ? parent->name : "no parent");
+		LOCAL_ERROR("invalid token, parent=%s!\n", parent ? parent->local_name : "no parent");
 		return NULL;
 	}
 
@@ -612,7 +610,7 @@ int ropen(const char *fpath, int flags)
 		int depath=get_token_depth(token);
 		if (depath > 1 || parent->type != DNODE) {
 			LOCAL_ERROR("error depth=%d, token=%s, parent (%d)=%s\n",
-					depath, token->tok_name, parent->type, parent->name);
+					depath, token->tok_name, parent->type, parent->local_name);
 			ERR_RET(-EINVAL);
 		}
 
@@ -968,7 +966,7 @@ static void print_node(node *fnode, int depth)
 	for (i = 0; i < depth; i++)
 		printf("|---");
 
-	printf("%s (%c)\n", fnode->name, fnode->type == FNODE ? 'F' : 'D');
+	printf("%s (%c)\n", fnode->local_name, fnode->type == FNODE ? 'F' : 'D');
 }
 
 static void dump_node(node *fnode, int depth)
