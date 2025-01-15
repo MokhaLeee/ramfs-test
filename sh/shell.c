@@ -440,8 +440,7 @@ int scat(const char *pathname)
 		printf("%c", ch);
 	}
 
-	if (ch != '\n')
-		printf("\n");
+	printf("\n");
 
 	shell_ret = 0;
 
