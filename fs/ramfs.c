@@ -51,6 +51,7 @@ bool valid_fpath(const char *s)
 			break;
 
 		default:
+			LOCAL_TRACE("invalid fpath: %s\n", s);
 			return false;
 		}
 	}
