@@ -19,13 +19,16 @@ int main() {
   assert(rmkdir("/usr/bin") == 0);
 
   assert((fd = ropen("/home///ubuntu//.bashrc", O_CREAT | O_WRONLY)) >= 0);
+
   assert(rwrite(fd, content, strlen(content)) == strlen(content));
-  
+  assert(rwrite(fd, ct, strlen(ct)) == strlen(ct));
+
   assert((fd = ropen("/home/ubuntu/.bashrc", O_RDONLY)) >= 0);
   memset(buf, 0, sizeof("/home/ubuntu/.bashrc"));
   assert(rread(fd, buf, 100) == strlen(content));
   assert(!strcmp(buf, content));
   assert(rclose(fd) == 0);
+
   assert(scat("/home/ubuntu/.bashrc") == 0);
 
 #if 0
