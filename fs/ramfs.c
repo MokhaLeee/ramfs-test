@@ -508,6 +508,9 @@ node *find(const char *fpath, int type)
 {
 	struct local_filename *filename;
 
+	if (!valid_root_fpath(fpath))
+		return NULL;
+
 	filename = get_local_filename(fpath);
 	if(!filename|| !filename->head)
 		return NULL;
@@ -522,6 +525,9 @@ int ropen(const char *fpath, int flags)
 	node *fnode, *parent;
 	struct local_filename *filename;
 	struct local_token *token, *token_bak;
+
+	if (!valid_root_fpath(fpath))
+		return -1;
 
 	/**
 	 * Judge invalid flags
@@ -821,6 +827,9 @@ int rmkdir(const char *fpath)
 	struct local_filename *filename;
 	struct local_token *token;
 
+	if (!valid_root_fpath(fpath))
+		return -1;
+
 	filename = get_local_filename(fpath);
 	if(!filename|| !filename->head)
 		ERR_RET(-EINVAL);
@@ -873,6 +882,9 @@ int rrmdir(const char *fpath)
 	node *fnode;
 	struct local_filename *filename;
 
+	if (!valid_root_fpath(fpath))
+		return -1;
+
 	filename = get_local_filename(fpath);
 	if(!filename|| !filename->head)
 		ERR_RET(-EINVAL);
@@ -917,6 +929,9 @@ int runlink(const char *fpath)
 	int ret = 0;
 	node *fnode;
 	struct local_filename *filename;
+
+	if (!valid_root_fpath(fpath))
+		return -1;
 
 	filename = get_local_filename(fpath);
 	if(!filename|| !filename->head)
