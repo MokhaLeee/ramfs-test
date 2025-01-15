@@ -11,7 +11,9 @@ int test4();
 int test5();
 
 static const char *content = "export PATH=/usr/bin/\n";
-static const char *ct = "export PATH=/home:$PATH";
+static const char *ct1 = "export PATH=/home:$PATH\n";
+static const char *ct2 = "export PATH=////home:$PATH\n";
+static const char *ct3 = "export PATH=   sdss: sscc :$PATH\n";
 
 static void local_test(void)
 {
@@ -23,7 +25,12 @@ static void local_test(void)
     assert(rmkdir("/home/ubuntu") == 0);
     assert(rmkdir("/usr") == 0);
     assert(rmkdir("/usr/bin") == 0);
-    assert(rwrite(ropen("/home///ubuntu//.bashrc", O_CREAT | O_WRONLY), content, strlen(content)) == strlen(content));
+
+    fd = ropen("/home///ubuntu//.bashrc", O_CREAT | O_WRONLY);
+    assert(rwrite(fd, content, strlen(content)) == strlen(content));
+    assert(rwrite(fd, ct1, strlen(ct1)) == strlen(ct1));
+    assert(rwrite(fd, ct2, strlen(ct2)) == strlen(ct2));
+    assert(rwrite(fd, ct3, strlen(ct3)) == strlen(ct3));
 
     init_shell();
 
@@ -42,5 +49,7 @@ int main() {
     test4();
     printf("[CRIT] case 5\n");
     test5();
+
+    local_test();
     return 0;
 }

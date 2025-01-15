@@ -108,8 +108,14 @@ void parse_str(char *dst, char *src, int len)
 		}
 
 		if (ch == '$') {
-			struct shell_path *var = get_value_from_var(src + i + 1);
+			struct shell_path *var;
 
+			if (src[i + 1] == '?') {
+				*dst++ = '0' + shell_ret;
+				continue;
+			}
+
+			var = get_value_from_var(src + i + 1);
 			if (var) {
 				strcpy(dst, var->fpath);
 				dst += strlen(var->fpath);
@@ -258,37 +264,49 @@ static void do_init_path(void)
 
 			if (var->fpath[i] == ':' || var->fpath[i] == '\0') {
 				struct shell_path *new_path, *last;
+				char path_buf[BUFFER_SIZE];
+				bool termator = var->fpath[i] == '\0';
+
 				end = i;
 
 				LOCAL_TRACE("path=%s, start=%d, end=%d\n", var->fpath + start, start, end);
 
-				new_path = malloc(sizeof(struct shell_path));
-				assert(new_path != NULL);
-
-				new_path->fpath = malloc(end - start + 1);
-				assert(new_path->fpath != NULL);
-
-				memset(new_path->fpath, 0, end - start + 1);
-				strncpy(new_path->fpath, var->fpath + start, end - start);
-
-				new_path->name = NULL;
-				new_path->pre = NULL;
-				new_path->next = NULL;
-
-				if (!shell_path_head)
-					shell_path_head = new_path;
-				else {
-					for (last = shell_path_head; last->next != NULL; last = last->next)
-						;
-
-					last->next = new_path;
-					new_path->pre = last;
-				}
-
-				LOCAL_TRACE("find path: %s\n", new_path->fpath);
+				memset(path_buf, 0, sizeof(path_buf));
+				parse_str(path_buf, var->fpath + start, end - start);
+				modify_fpath(path_buf);
 
 				start = i + 1;
-				if (var->fpath[i] == '\0')
+
+				if (valid_root_fpath(path_buf)) {
+					new_path = malloc(sizeof(struct shell_path));
+					assert(new_path != NULL);
+
+					new_path->fpath = malloc(strlen(path_buf) + 1);
+					assert(new_path->fpath != NULL);
+
+					memset(new_path->fpath, 0, strlen(path_buf) + 1);
+					strcpy(new_path->fpath, path_buf);
+
+					new_path->name = NULL;
+					new_path->pre = NULL;
+					new_path->next = NULL;
+
+					if (!shell_path_head)
+						shell_path_head = new_path;
+					else {
+						for (last = shell_path_head; last->next != NULL; last = last->next)
+							;
+
+						last->next = new_path;
+						new_path->pre = last;
+					}
+
+					LOCAL_INFO("find path: %s\n", new_path->fpath);
+				} else {
+					LOCAL_INFO("invalid path: %s\n", path_buf);
+				}
+
+				if (termator)
 					break;
 			}
 		}
