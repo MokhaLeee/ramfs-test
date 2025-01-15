@@ -97,7 +97,8 @@ void modify_fpath(char *fpath);
 #define INFO_EN  1
 #define ERROR_EN 1
 
-#define dprintf(prefix, format, ...) do { \
+#define dprintf(prefix, format, ...) \
+do { \
 	printf("\033[33m"); \
 	printf(prefix"(%s:%d: %s) "format, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__) \
 	printf("\033[0m"); \
